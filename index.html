@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spitznas &amp; Hoff — Clarity at the core</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ground:#0A2E36;--ink:#0A2E36;--ink2:#42605F;--ink3:#7B9594;
+  --teal:#0E7C7B;--accent:#14B8A6;--accent-soft:#9FE3D8;
+  --surface:#F3FAF9;--surface2:#EAF6F5;--line:#D4E7E4;--white:#fff;
+  --disp:'Space Grotesk',sans-serif;--body:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+a{color:inherit;text-decoration:none}
+
+/* nav */
+nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1080px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:17px;letter-spacing:-.01em}
+.logo .mark{width:26px;height:26px;border-radius:7px;background:var(--ground);position:relative;flex-shrink:0}
+.logo .mark::after{content:'';position:absolute;inset:7px;border-radius:50%;border:2px solid var(--accent)}
+.nav-links{display:flex;gap:30px;font-size:14px;color:var(--ink2)}
+.nav-links a:hover{color:var(--teal)}
+.nav-cta{font-family:var(--mono);font-size:12px;border:1px solid var(--line);padding:8px 15px;border-radius:8px;color:var(--teal);transition:.15s}
+.nav-cta:hover{background:var(--surface);border-color:var(--accent-soft)}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* hero */
+.hero{padding:80px 0 30px;text-align:center}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:22px}
+.hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(38px,6vw,64px);line-height:1.04;letter-spacing:-.025em;color:var(--ground);max-width:14ch;margin:0 auto 22px}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.hero p.lead{font-size:clamp(16px,2vw,19px);color:var(--ink2);max-width:52ch;margin:0 auto 34px}
+.hero-cta{display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{font-family:var(--body);font-weight:600;font-size:15px;padding:13px 24px;border-radius:10px;cursor:pointer;border:1px solid transparent;transition:.16s}
+.btn-primary{background:var(--ground);color:#fff}
+.btn-primary:hover{background:#0d3b45}
+.btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--accent-soft);background:var(--surface)}
+
+/* convergence signature */
+.converge{padding:54px 0 80px}
+.converge-frame{background:linear-gradient(180deg,var(--surface) 0%,var(--surface2) 100%);border:1px solid var(--line);border-radius:22px;padding:44px 28px;position:relative;overflow:hidden}
+.converge-cap{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.converge-title{text-align:center;font-family:var(--disp);font-weight:600;font-size:22px;color:var(--ground);margin-bottom:36px;letter-spacing:-.01em}
+svg .chan-label{font-family:var(--mono);font-size:11px;fill:var(--ink2)}
+svg .hub-label{font-family:var(--disp);font-size:15px;font-weight:600;fill:#fff}
+svg .hub-sub{font-family:var(--mono);font-size:8.5px;fill:var(--accent-soft);letter-spacing:.1em}
+.flow{stroke:var(--accent);stroke-width:1.6;fill:none;opacity:.34;stroke-dasharray:5 5;animation:dash 22s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-200}}
+.node{fill:#fff;stroke:var(--line);stroke-width:1.4}
+.node.live{stroke:var(--accent);stroke-width:2;cursor:pointer}
+.node.live:hover{fill:var(--surface)}
+.node-ic{fill:var(--ink2)}
+.node.live .node-ic{fill:var(--teal)}
+.live-pulse{fill:var(--accent);opacity:.9}
+.live-tag{font-family:var(--mono);font-size:8px;fill:var(--teal);letter-spacing:.08em}
+.converge-hint{text-align:center;font-size:13px;color:var(--ink3);margin-top:26px}
+.converge-hint b{color:var(--teal);font-weight:500}
+
+/* modules */
+.section{padding:74px 0}
+.sec-head{margin-bottom:40px}
+.sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
+.sec-title{font-family:var(--disp);font-weight:600;font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;color:var(--ground);max-width:20ch}
+.modules{border-top:1px solid var(--line)}
+.module{display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:baseline;padding:26px 8px;border-bottom:1px solid var(--line);transition:.15s}
+.module:hover{background:var(--surface);padding-left:18px;padding-right:18px}
+.module .code{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500}
+.module .m-name{font-family:var(--disp);font-weight:600;font-size:20px;color:var(--ground)}
+.module .m-desc{font-size:14.5px;color:var(--ink2);margin-top:5px;max-width:54ch}
+.module .m-status{font-family:var(--mono);font-size:10.5px;color:var(--ink3);white-space:nowrap;align-self:center}
+.module .m-status.live{color:var(--teal)}
+.module .m-status.live::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:middle}
+@media(max-width:640px){.module{grid-template-columns:40px 1fr;gap:14px}.module .m-status{grid-column:2;margin-top:8px}}
+
+/* hub band */
+.hub-band{background:var(--ground);color:#fff;border-radius:22px;padding:52px 40px;text-align:center;margin:10px 0}
+.hub-band .sec-eyebrow{color:var(--accent)}
+.hub-band h2{font-family:var(--disp);font-weight:600;font-size:clamp(24px,3.2vw,34px);letter-spacing:-.02em;margin-bottom:16px;color:#fff}
+.hub-band p{color:#B9D6D3;max-width:56ch;margin:0 auto;font-size:16px}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:8px}
+.step{padding:26px 22px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+.step .s-code{font-family:var(--mono);font-size:12px;color:var(--teal);margin-bottom:14px}
+.step h3{font-family:var(--disp);font-weight:600;font-size:18px;color:var(--ground);margin-bottom:8px}
+.step p{font-size:14px;color:var(--ink2)}
+@media(max-width:720px){.steps{grid-template-columns:1fr}}
+
+/* cta foot */
+.foot-cta{text-align:center;padding:80px 0}
+.foot-cta h2{font-family:var(--disp);font-weight:700;font-size:clamp(30px,4.4vw,48px);letter-spacing:-.025em;color:var(--ground);max-width:18ch;margin:0 auto 20px}
+.foot-cta h2 em{font-style:normal;color:var(--teal)}
+.foot-cta p{color:var(--ink2);margin-bottom:30px;font-size:17px}
+footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;font-size:13px;color:var(--ink3)}
+footer .mono{font-family:var(--mono)}
+
+/* ===== chat widget ===== */
+#sh-bubble{position:fixed;bottom:24px;right:24px;width:58px;height:58px;border-radius:50%;background:var(--ground);box-shadow:0 8px 30px rgba(10,46,54,.28);cursor:pointer;z-index:60;display:flex;align-items:center;justify-content:center;transition:transform .18s}
+#sh-bubble:hover{transform:scale(1.06)}
+#sh-bubble svg{width:24px;height:24px;stroke:#fff}
+#sh-bubble .badge{position:absolute;top:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:2px solid #fff}
+#sh-chat{position:fixed;bottom:92px;right:24px;width:370px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 130px);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(10,46,54,.22);z-index:60;display:none;flex-direction:column;overflow:hidden}
+#sh-chat.open{display:flex}
+.sh-head{background:var(--ground);padding:16px 18px;color:#fff;display:flex;align-items:center;gap:11px}
+.sh-head .av{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.12);position:relative;flex-shrink:0}
+.sh-head .av::after{content:'';position:absolute;inset:9px;border-radius:50%;border:2px solid var(--accent)}
+.sh-head .ht{font-family:var(--disp);font-weight:600;font-size:14px}
+.sh-head .hs{font-size:11px;color:var(--accent-soft)}
+.sh-head .close{margin-left:auto;cursor:pointer;opacity:.7;font-size:18px}
+.sh-head .close:hover{opacity:1}
+.sh-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.sh-msg{max-width:84%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.45}
+.sh-msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px}
+.sh-msg.user{align-self:flex-end;background:var(--ground);color:#fff;border-bottom-right-radius:4px}
+.sh-typing{align-self:flex-start;display:flex;gap:4px;padding:11px 14px;background:#fff;border:1px solid var(--line);border-radius:13px}
+.sh-typing i{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:bb 1.2s infinite}
+.sh-typing i:nth-child(2){animation-delay:.2s}.sh-typing i:nth-child(3){animation-delay:.4s}
+@keyframes bb{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.sh-in{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#fff}
+.sh-in input{flex:1;border:1px solid var(--line);border-radius:9px;padding:10px 13px;font-family:var(--body);font-size:13.5px;outline:none}
+.sh-in input:focus{border-color:var(--accent)}
+.sh-in button{background:var(--ground);border:none;color:#fff;border-radius:9px;padding:0 15px;cursor:pointer;font-family:var(--body);font-weight:600;font-size:13px}
+.sh-in button:disabled{opacity:.4}
+.sh-foot{text-align:center;font-family:var(--mono);font-size:9.5px;color:var(--ink3);padding:7px;background:#fff}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="#" class="logo"><span class="mark"></span>Spitznas &amp; Hoff</a>
+    <div class="nav-links">
+      <a href="#modules">Modules</a>
+      <a href="#hub">The Hub</a>
+      <a href="#process">How it works</a>
+    </div>
+    <a href="#contact" class="nav-cta">Book a consult</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">AI systems for small business</div>
+    <h1>Clarity at the <em>core</em> of your business.</h1>
+    <p class="lead">We build practical AI that removes the busywork — answering calls, chasing reviews, following up — and ties it all into one system you actually control.</p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="shOpen()">See Reception live →</button>
+      <a href="#modules" class="btn btn-ghost">Explore the modules</a>
+    </div>
+  </div>
+</header>
+
+<section class="converge">
+  <div class="wrap">
+    <div class="converge-frame">
+      <div class="converge-cap">The thesis</div>
+      <div class="converge-title">Every channel, one source of truth.</div>
+      <svg viewBox="0 0 720 300" width="100%" role="img" aria-label="Five channels converging into the Hub">
+        <!-- flows -->
+        <path class="flow" d="M150,40 C320,40 360,150 470,150"/>
+        <path class="flow" d="M150,95 C320,95 380,150 470,150"/>
+        <path class="flow" d="M150,150 L470,150"/>
+        <path class="flow" d="M150,205 C320,205 380,150 470,150"/>
+        <path class="flow" d="M150,260 C320,260 360,150 470,150"/>
+
+        <!-- channel nodes -->
+        <g>
+          <circle class="node live" cx="120" cy="40" r="26" onclick="shOpen()"/>
+          <text class="chan-label" x="20" y="44">Calls</text>
+          <text class="live-tag" x="92" y="14">● LIVE</text>
+          <path class="node-ic" d="M112,32 a3,3 0 0 1 3,-3 h2 l2,5 -2,2 a12,12 0 0 0 5,5 l2,-2 5,2 v2 a3,3 0 0 1 -3,3 a18,18 0 0 1 -16,-16 z" transform="translate(0,1)"/>
+        </g>
+        <g>
+          <circle class="node" cx="120" cy="95" r="26"/>
+          <text class="chan-label" x="22" y="99">Web chat</text>
+        </g>
+        <g>
+          <circle class="node" cx="120" cy="150" r="26"/>
+          <text class="chan-label" x="30" y="154">Forms</text>
+        </g>
+        <g>
+          <circle class="node" cx="120" cy="205" r="26"/>
+          <text class="chan-label" x="24" y="209">Reviews</text>
+        </g>
+        <g>
+          <circle class="node" cx="120" cy="260" r="26"/>
+          <text class="chan-label" x="14" y="264">Follow-ups</text>
+        </g>
+
+        <!-- hub -->
+        <circle cx="520" cy="150" r="62" fill="#0A2E36"/>
+        <circle cx="520" cy="150" r="62" fill="none" stroke="#14B8A6" stroke-width="1.5" opacity=".5"/>
+        <text class="hub-label" x="520" y="148" text-anchor="middle">The Hub</text>
+        <text class="hub-sub" x="520" y="164" text-anchor="middle">ONE DASHBOARD</text>
+      </svg>
+      <div class="converge-hint">The <b>Calls</b> node is live — tap it (or the chat bubble) to talk to our Reception agent right now.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="modules">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Five modules</div>
+      <div class="sec-title">Pick what you need. They share one brain.</div>
+    </div>
+    <div class="modules">
+      <div class="module">
+        <span class="code">01</span>
+        <div><div class="m-name">Reception</div><div class="m-desc">Answers every call, web chat, and form. Captures the lead, flags emergencies, and routes or books — 24/7, never a missed call.</div></div>
+        <div class="m-status live">Live demo</div>
+      </div>
+      <div class="module">
+        <span class="code">02</span>
+        <div><div class="m-name">Sales</div><div class="m-desc">Responds to new leads in seconds, qualifies them, and revives dormant customers with personalized win-back outreach.</div></div>
+        <div class="m-status">In build</div>
+      </div>
+      <div class="module">
+        <span class="code">03</span>
+        <div><div class="m-name">Operations</div><div class="m-desc">Dispatches the right person to the right job, tracks status, and keeps the schedule moving without the phone tag.</div></div>
+        <div class="m-status">In build</div>
+      </div>
+      <div class="module">
+        <span class="code">04</span>
+        <div><div class="m-name">Back Office</div><div class="m-desc">Pulls data off invoices and forms, reconciles the books, and turns your numbers into a plain-language weekly read.</div></div>
+        <div class="m-status">In build</div>
+      </div>
+      <div class="module">
+        <span class="code">05</span>
+        <div><div class="m-name">Customer Success</div><div class="m-desc">Asks happy customers for reviews at the right moment, drafts on-brand replies, and keeps you top of mind after the job.</div></div>
+        <div class="m-status">In build</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="hub">
+  <div class="wrap">
+    <div class="hub-band">
+      <div class="sec-eyebrow">The Hub</div>
+      <h2>One dashboard. One source of truth.</h2>
+      <p>Every module writes to the same place, so a call, a web chat, and a review request all land in one view. No more stitching together five tools that don't talk to each other.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-eyebrow">How it works</div>
+      <div class="sec-title">Clarity first, then build, then we stay.</div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="s-code">01 — Consult</div><h3>Find the leaks</h3><p>We map where time and revenue are slipping — missed calls, slow follow-up, lost reviews — and show you the highest-ROI fixes.</p></div>
+      <div class="step"><div class="s-code">02 — Build</div><h3>Install the modules</h3><p>We configure and wire up the modules you need, tuned to how your business actually runs, and connect them to the Hub.</p></div>
+      <div class="step"><div class="s-code">03 — Retain</div><h3>Keep it sharp</h3><p>We monitor, tune, and improve it every month as your business evolves — so it keeps working while you don't think about it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="foot-cta" id="contact">
+  <div class="wrap">
+    <h2>Big-company leverage for a <em>small team</em>.</h2>
+    <p>Start with Reception — talk to it yourself, right now.</p>
+    <button class="btn btn-primary" onclick="shOpen()">Talk to our AI agent →</button>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="mono">SPITZNAS &amp; HOFF · PHILADELPHIA</div>
+    <div style="margin-top:6px">Clarity at the core.</div>
+  </div>
+</footer>
+
+<!-- chat widget -->
+<div id="sh-bubble" onclick="shToggle()" aria-label="Open chat">
+  <span class="badge"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</div>
+
+<div id="sh-chat">
+  <div class="sh-head">
+    <span class="av"></span>
+    <div><div class="ht">S&amp;H Assistant</div><div class="hs">Reception module · live demo</div></div>
+    <span class="close" onclick="shToggle()">✕</span>
+  </div>
+  <div class="sh-msgs" id="shMsgs"></div>
+  <div class="sh-in">
+    <input id="shInput" placeholder="Ask about S&amp;H…" autocomplete="off">
+    <button id="shSend" onclick="shSendMsg()">Send</button>
+  </div>
+  <div class="sh-foot">Powered by Spitznas &amp; Hoff · Reception</div>
+</div>
+
+<script>
+// ---- chat config ----
+// Proxy endpoint (Supabase edge function) holds the API key and calls Claude.
+// Until it's deployed, the widget runs in a graceful "offline" scripted mode.
+const SH_PROXY_URL = "https://ampuejhdkgvjttvlkayc.supabase.co/functions/v1/sh-chat";
+const SH_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcHVlamhka2d2anR0dmxrYXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4NTc2MzMsImV4cCI6MjA5MzQzMzYzM30.T4nFUlCTiapCx8kxr7sOo2zlKgKg-VlmaYNZXQNC7UU";
+
+let shHistory = [];
+let shBusy = false;
+
+function shToggle(){ document.getElementById('sh-chat').classList.toggle('open'); if(document.getElementById('sh-chat').classList.contains('open')) shGreet(); }
+function shOpen(){ const c=document.getElementById('sh-chat'); if(!c.classList.contains('open')){c.classList.add('open');shGreet();} document.getElementById('shInput').focus(); }
+
+function shGreet(){
+  if(document.getElementById('shMsgs').children.length===0){
+    shBot("Hi — I'm the Spitznas & Hoff assistant. I can explain how we work, what the five modules do, or pricing. What brings you in?");
+  }
+}
+function shBot(t){ const d=document.createElement('div');d.className='sh-msg bot';d.textContent=t;document.getElementById('shMsgs').appendChild(d);shScroll(); }
+function shUser(t){ const d=document.createElement('div');d.className='sh-msg user';d.textContent=t;document.getElementById('shMsgs').appendChild(d);shScroll(); }
+function shScroll(){ const m=document.getElementById('shMsgs');m.scrollTop=m.scrollHeight; }
+function shTyping(on){
+  let t=document.getElementById('shTyping');
+  if(on&&!t){t=document.createElement('div');t.id='shTyping';t.className='sh-typing';t.innerHTML='<i></i><i></i><i></i>';document.getElementById('shMsgs').appendChild(t);shScroll();}
+  if(!on&&t)t.remove();
+}
+
+async function shSendMsg(){
+  const inp=document.getElementById('shInput');
+  const text=inp.value.trim();
+  if(!text||shBusy)return;
+  inp.value=''; shUser(text); shHistory.push({role:'user',content:text});
+  shBusy=true; document.getElementById('shSend').disabled=true; shTyping(true);
+
+  try{
+    const res=await fetch(SH_PROXY_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+SH_ANON},
+      body:JSON.stringify({messages:shHistory})
+    });
+    if(!res.ok) throw new Error('proxy '+res.status);
+    const data=await res.json();
+    const reply=data.reply || "Sorry — I didn't catch that.";
+    shTyping(false); shBot(reply); shHistory.push({role:'assistant',content:reply});
+  }catch(e){
+    // graceful offline fallback so the demo never looks broken
+    shTyping(false);
+    shBot(shOffline(text));
+  }
+  shBusy=false; document.getElementById('shSend').disabled=false; document.getElementById('shInput').focus();
+}
+
+// offline scripted fallback (used only if proxy isn't deployed yet)
+function shOffline(t){
+  const q=t.toLowerCase();
+  if(q.includes('price')||q.includes('cost')||q.includes('how much'))
+    return "We typically start with a paid consult to map your needs, then build the modules you choose, with a monthly retainer to keep everything tuned. Exact pricing depends on scope — want to book a consult to get specifics?";
+  if(q.includes('reception')||q.includes('call')||q.includes('phone'))
+    return "Reception answers every call, web chat, and form — captures the lead, flags emergencies, and routes or books, 24/7. It's the module you're talking to right now. The idea isn't to replace your front desk; it's to make sure nothing slips through when no one can pick up.";
+  if(q.includes('module'))
+    return "Five modules: Reception (calls/chat/forms), Sales (lead response + win-back), Operations (dispatch + scheduling), Back Office (invoices + bookkeeping + reporting), and Customer Success (reviews + staying top of mind). They all feed one dashboard — the Hub.";
+  if(q.includes('hub'))
+    return "The Hub is the single dashboard every module writes to — so a call, a web chat, and a review request all land in one place instead of five disconnected tools.";
+  return "Happy to help with that. S&H builds practical AI for small businesses — Reception, Sales, Operations, Back Office, and Customer Success, unified by one dashboard. Want me to walk through a specific module, or set up a consult?";
+}
+
+document.getElementById('shInput').addEventListener('keydown',e=>{if(e.key==='Enter')shSendMsg();});
+</script>
+</body>
+</html>
