@@ -106,17 +106,36 @@ body{background:var(--surface);color:var(--ink);font-family:var(--body);font-siz
 .module-view.active{display:block;animation:fade .25s ease}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:760px){.app{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;gap:6px}.side .logo,.side .lbl,.side .foot{display:none}.navitem{flex:1;justify-content:center;padding:9px}.navitem .code,.navitem .tx{display:none}}
+/* ===== interactive additions ===== */
+.reset-btn{font-family:var(--mono);font-size:11px;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.13s}
+.reset-btn:hover{border-color:var(--accent-soft);color:var(--teal)}
+.head-actions{display:flex;align-items:center;gap:10px}
+@keyframes slidein{from{opacity:0;transform:translateY(-10px);background:var(--surface2)}to{opacity:1;transform:translateY(0);background:transparent}}
+.row.fresh,.pcard.fresh{animation:slidein .5s ease}
+@keyframes flash{0%{background:var(--surface2)}100%{background:transparent}}
+.flash{animation:flash 1s ease}
+.row.leaving{opacity:0;transform:translateX(20px);transition:.35s}
+.pcard{cursor:pointer;transition:.13s;user-select:none}
+.pcard:hover{border-color:var(--accent-soft);box-shadow:0 2px 8px rgba(10,46,54,.06)}
+.pcard:active{transform:scale(.97)}
+.pcard .advance-hint{font-family:var(--mono);font-size:8.5px;color:var(--accent);opacity:0;margin-top:4px;transition:.13s}
+.pcard:hover .advance-hint{opacity:1}
+.empty-col{font-size:11px;color:var(--ink3);text-align:center;padding:14px 0;font-style:italic;opacity:.6}
+.btn-sm.done-state{background:var(--greenbg);color:var(--green);border-color:rgba(76,175,125,.3);pointer-events:none}
+.live-feed-note{font-family:var(--mono);font-size:10px;color:var(--ink3);display:flex;align-items:center;gap:6px;margin-left:auto}
+.live-feed-note .d{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite}
+.counter-pop{animation:cpop .4s ease}
+@keyframes cpop{0%{transform:scale(1)}40%{transform:scale(1.18);color:var(--accent)}100%{transform:scale(1)}}
 </style>
 </head>
 <body>
 <div class="app">
-  <!-- SIDEBAR -->
   <aside class="side">
     <div class="logo"><span class="mark"></span>The Hub</div>
     <div class="lbl">Modules</div>
     <div class="navitem active" data-mod="reception">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span class="tx">Reception</span><span class="code">01</span>
+      <span class="tx">Reception</span><span class="code" id="navCountRec">01</span>
     </div>
     <div class="navitem" data-mod="sales">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
@@ -124,7 +143,7 @@ body{background:var(--surface);color:var(--ink);font-family:var(--body);font-siz
     </div>
     <div class="navitem" data-mod="operations">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-      <span class="tx">Operations</span><span class="code">03</span>
+      <span class="tx">Operations</span><span class="code" id="navCountOps">03</span>
     </div>
     <div class="navitem" data-mod="backoffice">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
@@ -135,112 +154,84 @@ body{background:var(--surface);color:var(--ink);font-family:var(--body);font-siz
       <span class="tx">Customer Success</span><span class="code">05</span>
     </div>
     <div class="foot">
-      <a href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m12 19-7-7 7-7M5 12h14"/></svg> Back to site</a>
+      <a href="index.html"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m12 19-7-7 7-7M5 12h14"/></svg> Back to site</a>
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
-
-    <!-- ===== RECEPTION ===== -->
+    <!-- RECEPTION -->
     <section class="module-view active" id="reception">
       <div class="head">
-        <div class="t"><div class="eyebrow">Module 01</div><h1>Reception</h1><p>Every call, chat, and form — captured, qualified, and routed in one place. Never a missed lead.</p></div>
-        <div class="demo-pill"><span class="dot"></span>LIVE DEMO DATA</div>
+        <div class="t"><div class="eyebrow">Module 01</div><h1>Reception</h1><p>Every call, chat, and form — captured, qualified, and routed in one place. Try routing a lead; watch it flow to Operations.</p></div>
+        <div class="head-actions">
+          <div class="demo-pill"><span class="dot"></span>LIVE DEMO</div>
+          <button class="reset-btn" onclick="resetAll()"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>Reset demo</button>
+        </div>
       </div>
       <div class="stats">
-        <div class="stat"><div class="k">Leads today</div><div class="v teal">14</div><div class="sub">+3 vs yesterday</div></div>
+        <div class="stat"><div class="k">Leads today</div><div class="v teal" id="stLeads">14</div><div class="sub">+3 vs yesterday</div></div>
         <div class="stat"><div class="k">Answered 24/7</div><div class="v">100<small>%</small></div><div class="sub">0 missed</div></div>
         <div class="stat"><div class="k">Avg response</div><div class="v green">1.2<small>s</small></div><div class="sub">to first reply</div></div>
-        <div class="stat"><div class="k">Emergencies</div><div class="v red">2</div><div class="sub">routed instantly</div></div>
+        <div class="stat"><div class="k">Emergencies</div><div class="v red" id="stEmerg">2</div><div class="sub">routed instantly</div></div>
       </div>
       <div class="panel">
-        <div class="panel-h"><span class="pt">Incoming leads</span><span class="pa">auto-captured · all channels</span></div>
+        <div class="panel-h"><span class="pt">Incoming leads</span><span class="live-feed-note"><span class="d"></span>auto-capturing · all channels</span></div>
         <div id="recRows"></div>
       </div>
     </section>
 
-    <!-- ===== SALES ===== -->
+    <!-- SALES -->
     <section class="module-view" id="sales">
       <div class="head">
-        <div class="t"><div class="eyebrow">Module 02</div><h1>Sales</h1><p>Responds to new leads in seconds, qualifies them, and revives dormant customers — so nothing goes cold.</p></div>
-        <div class="demo-pill"><span class="dot"></span>LIVE DEMO DATA</div>
+        <div class="t"><div class="eyebrow">Module 02</div><h1>Sales</h1><p>Responds in seconds, qualifies, and revives dormant customers. Click a card to advance it through the pipeline.</p></div>
+        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
       </div>
       <div class="stats">
-        <div class="stat"><div class="k">Leads in pipeline</div><div class="v teal">28</div><div class="sub">$96k potential</div></div>
+        <div class="stat"><div class="k">In pipeline</div><div class="v teal" id="stPipe">10</div><div class="sub">$96k potential</div></div>
         <div class="stat"><div class="k">Responded &lt;60s</div><div class="v green">100<small>%</small></div><div class="sub">speed-to-lead</div></div>
         <div class="stat"><div class="k">Win-back sent</div><div class="v">42</div><div class="sub">dormant customers</div></div>
-        <div class="stat"><div class="k">Reactivated</div><div class="v amber">7</div><div class="sub">this month</div></div>
+        <div class="stat"><div class="k">Won</div><div class="v amber" id="stWon">7</div><div class="sub">this month</div></div>
       </div>
       <div class="panel">
-        <div class="panel-h"><span class="pt">Lead pipeline</span><span class="pa">auto-qualified</span></div>
-        <div class="pipeline">
-          <div class="pcol"><h4>New <span>5</span></h4>
-            <div class="pcard"><div class="pn">Maria Delgado</div><div class="pv">Kitchen remodel · $14k</div></div>
-            <div class="pcard"><div class="pn">Tom Becker</div><div class="pv">AC replacement · $8k</div></div>
-            <div class="pcard"><div class="pn">Priya N.</div><div class="pv">Bathroom · $11k</div></div>
-          </div>
-          <div class="pcol"><h4>Qualified <span>3</span></h4>
-            <div class="pcard"><div class="pn">James Wright</div><div class="pv">Full HVAC · $9.5k</div></div>
-            <div class="pcard"><div class="pn">Anna Lee</div><div class="pv">Water heater · $2.4k</div></div>
-          </div>
-          <div class="pcol"><h4>Quoted <span>2</span></h4>
-            <div class="pcard"><div class="pn">Dev Patel</div><div class="pv">Furnace · $6.8k</div></div>
-          </div>
-          <div class="pcol"><h4>Won <span>7</span></h4>
-            <div class="pcard"><div class="pn">R. Foster</div><div class="pv">Reactivated · $3.2k</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-h"><span class="pt">Win-back campaign</span><span class="pa">dormant 6+ months</span></div>
-        <div class="row"><div class="avatar">RF</div><div><div class="nm">Robert Foster</div><div class="sub">Last job 8 months ago · furnace tune-up</div></div><div class="right"><span class="tag green">replied</span></div></div>
-        <div class="row"><div class="avatar">SK</div><div><div class="nm">Susan Kim</div><div class="sub">Last job 11 months ago · AC install</div></div><div class="right"><span class="tag amber">opened</span></div></div>
-        <div class="row"><div class="avatar">DM</div><div><div class="nm">David Morales</div><div class="sub">Last job 7 months ago · water heater</div></div><div class="right"><span class="tag teal">sent</span></div></div>
+        <div class="panel-h"><span class="pt">Lead pipeline</span><span class="pa">click a card to advance →</span></div>
+        <div class="pipeline" id="pipeline"></div>
       </div>
     </section>
 
-    <!-- ===== OPERATIONS ===== -->
+    <!-- OPERATIONS -->
     <section class="module-view" id="operations">
       <div class="head">
-        <div class="t"><div class="eyebrow">Module 03</div><h1>Operations</h1><p>Right tech, right job, right time. Dispatch, track, and keep the schedule moving without the phone tag.</p></div>
-        <div class="demo-pill"><span class="dot"></span>LIVE DEMO DATA</div>
+        <div class="t"><div class="eyebrow">Module 03</div><h1>Operations</h1><p>Right tech, right job, right time. Assign techs and resolve jobs — routed leads from Reception land here.</p></div>
+        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
       </div>
       <div class="stats">
-        <div class="stat"><div class="k">Jobs today</div><div class="v teal">9</div><div class="sub">6 done · 3 active</div></div>
-        <div class="stat"><div class="k">Techs on duty</div><div class="v">5</div><div class="sub">2 available</div></div>
+        <div class="stat"><div class="k">Jobs today</div><div class="v teal" id="stJobs">9</div><div class="sub" id="stJobsSub">6 done · 3 active</div></div>
+        <div class="stat"><div class="k">Techs on duty</div><div class="v">5</div><div class="sub" id="stAvail">2 available</div></div>
         <div class="stat"><div class="k">Avg ETA</div><div class="v green">18<small>m</small></div><div class="sub">to site</div></div>
         <div class="stat"><div class="k">Utilization</div><div class="v amber">82<small>%</small></div><div class="sub">crew capacity</div></div>
       </div>
       <div class="two-col">
         <div class="panel">
           <div class="panel-h"><span class="pt">Active jobs</span><span class="pa">live status</span></div>
-          <div class="row"><div><div class="nm">Burst pipe — 2436 Tulip St</div><div class="sub">Sam Okafor · arrived 9:12am</div></div><div class="right"><span class="tag em">emergency</span><div class="bar2" style="width:90px"><i style="width:70%"></i></div></div></div>
-          <div class="row"><div><div class="nm">AC install — 90 Pine St</div><div class="sub">Mike Rossi · en route, ETA 6m</div></div><div class="right"><span class="tag blue">en route</span><div class="bar2" style="width:90px"><i style="width:35%"></i></div></div></div>
-          <div class="row"><div><div class="nm">Water heater — 1847 Passyunk</div><div class="sub">Luis Vega · on site</div></div><div class="right"><span class="tag teal">working</span><div class="bar2" style="width:90px"><i style="width:55%"></i></div></div></div>
-          <div class="row"><div><div class="nm">Furnace tune-up — 55 Reed St</div><div class="sub">Scheduled 2:00pm · unassigned</div></div><div class="right"><button class="btn-sm" onclick="toast('Tanya Brown assigned · ETA 14m')">Assign</button></div></div>
+          <div id="opsJobs"></div>
         </div>
         <div class="panel">
           <div class="panel-h"><span class="pt">Crew</span></div>
-          <div class="row"><div class="avatar">SO</div><div><div class="nm" style="font-size:13px">Sam Okafor</div><div class="sub">Plumber</div></div><div class="right"><span class="tag amber">on job</span></div></div>
-          <div class="row"><div class="avatar">MR</div><div><div class="nm" style="font-size:13px">Mike Rossi</div><div class="sub">HVAC</div></div><div class="right"><span class="tag blue">en route</span></div></div>
-          <div class="row"><div class="avatar">LV</div><div><div class="nm" style="font-size:13px">Luis Vega</div><div class="sub">Restoration</div></div><div class="right"><span class="tag amber">on job</span></div></div>
-          <div class="row"><div class="avatar">TB</div><div><div class="nm" style="font-size:13px">Tanya Brown</div><div class="sub">General</div></div><div class="right"><span class="tag green">available</span></div></div>
-          <div class="row"><div class="avatar">DG</div><div><div class="nm" style="font-size:13px">Dave Greco</div><div class="sub">Electrician</div></div><div class="right"><span class="tag green">available</span></div></div>
+          <div id="opsCrew"></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== BACK OFFICE ===== -->
+    <!-- BACK OFFICE -->
     <section class="module-view" id="backoffice">
       <div class="head">
         <div class="t"><div class="eyebrow">Module 04</div><h1>Back Office</h1><p>Pulls data off invoices and forms, reconciles the books, and turns your numbers into a plain-language read.</p></div>
-        <div class="demo-pill"><span class="dot"></span>LIVE DEMO DATA</div>
+        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
       </div>
       <div class="stats">
         <div class="stat"><div class="k">Invoices processed</div><div class="v teal">128</div><div class="sub">this month · auto</div></div>
         <div class="stat"><div class="k">Hours saved</div><div class="v green">31<small>h</small></div><div class="sub">vs manual entry</div></div>
-        <div class="stat"><div class="k">Exceptions flagged</div><div class="v amber">4</div><div class="sub">need review</div></div>
+        <div class="stat"><div class="k">Exceptions</div><div class="v amber" id="stExc">4</div><div class="sub">need review</div></div>
         <div class="stat"><div class="k">Outstanding AR</div><div class="v">$18<small>.4k</small></div><div class="sub">6 invoices</div></div>
       </div>
       <div class="two-col">
@@ -248,13 +239,7 @@ body{background:var(--surface);color:var(--ink);font-family:var(--body);font-siz
           <div class="panel-h"><span class="pt">Recently extracted</span><span class="pa">invoice → books, no keying</span></div>
           <table class="invoice-tbl">
             <thead><tr><th>Vendor</th><th>Invoice</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>Ferguson Supply</td><td>#FS-8841</td><td>Jun 12</td><td class="amt">$2,140</td><td><span class="tag green">posted</span></td></tr>
-              <tr><td>Carrier Parts</td><td>#CP-2290</td><td>Jun 12</td><td class="amt">$880</td><td><span class="tag green">posted</span></td></tr>
-              <tr><td>Grainger</td><td>#GR-5512</td><td>Jun 11</td><td class="amt">$415</td><td><span class="tag amber">review</span></td></tr>
-              <tr><td>Home Depot Pro</td><td>#HD-1903</td><td>Jun 11</td><td class="amt">$1,267</td><td><span class="tag green">posted</span></td></tr>
-              <tr><td>Reece Plumbing</td><td>#RP-7740</td><td>Jun 10</td><td class="amt">$3,090</td><td><span class="tag green">posted</span></td></tr>
-            </tbody>
+            <tbody id="invoiceBody"></tbody>
           </table>
         </div>
         <div class="panel">
@@ -262,21 +247,21 @@ body{background:var(--surface);color:var(--ink);font-family:var(--body);font-siz
           <div class="weekly">
             Revenue was <span class="hl">$42,180</span>, up <b>12%</b> from last week. Your three biggest jobs were all HVAC installs. <br><br>
             Material costs ran <span class="hl">$11,200</span> — a little high relative to revenue, mostly the Ferguson and Reece orders. <br><br>
-            <b>Watch:</b> 6 invoices totaling <span class="hl">$18.4k</span> are now 30+ days outstanding. Want me to send reminders?
+            <b>Watch:</b> 6 invoices totaling <span class="hl">$18.4k</span> are now 30+ days outstanding. <button class="btn-sm" style="margin-top:8px" onclick="toast('Payment reminders sent to 6 customers')">Send reminders</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== CUSTOMER SUCCESS ===== -->
+    <!-- CUSTOMER SUCCESS -->
     <section class="module-view" id="success">
       <div class="head">
-        <div class="t"><div class="eyebrow">Module 05</div><h1>Customer Success</h1><p>Asks happy customers for reviews at the right moment, drafts on-brand replies, and keeps you top of mind.</p></div>
-        <div class="demo-pill"><span class="dot"></span>LIVE DEMO DATA</div>
+        <div class="t"><div class="eyebrow">Module 05</div><h1>Customer Success</h1><p>Asks happy customers for reviews, drafts on-brand replies, and keeps you top of mind. Approve a draft to post it.</p></div>
+        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
       </div>
       <div class="stats">
         <div class="stat"><div class="k">Avg rating</div><div class="v amber">4.9<small>★</small></div><div class="sub">+0.3 in 90 days</div></div>
-        <div class="stat"><div class="k">Reviews this month</div><div class="v teal">37</div><div class="sub">+22 vs last</div></div>
+        <div class="stat"><div class="k">Reviews this month</div><div class="v teal" id="stReviews">37</div><div class="sub">+22 vs last</div></div>
         <div class="stat"><div class="k">Request → review</div><div class="v green">41<small>%</small></div><div class="sub">conversion</div></div>
         <div class="stat"><div class="k">Replied</div><div class="v">100<small>%</small></div><div class="sub">avg 2h</div></div>
       </div>
@@ -286,27 +271,285 @@ body{background:var(--surface);color:var(--ink);font-family:var(--body);font-siz
         <div class="row"><div class="avatar">AC</div><div><div class="nm">Amy Chen</div><div class="sub">Roof leak · 5★ left</div><div class="stars">★★★★★</div></div><div class="right"><span class="tag green">reviewed</span></div></div>
       </div>
       <div class="panel">
-        <div class="panel-h"><span class="pt">Reply drafts — awaiting your approval</span><span class="pa">on-brand, ready to post</span></div>
-        <div class="row" style="display:block">
-          <div style="display:flex;align-items:center;gap:12px"><div class="avatar">★</div><div><div class="nm">Amy Chen · 5★</div><div class="sub">"Showed up fast and fixed my roof leak in the rain. Lifesavers."</div></div></div>
-          <div class="reply-box"><b>DRAFTED REPLY</b>Thank you so much, Amy! Rain or shine, we've got you — so glad we could get that leak handled fast. We're always here if anything else comes up. 🌧️</div>
-          <div style="display:flex;gap:8px;margin-top:10px"><button class="btn-sm" onclick="toast('Reply posted to Google')">Approve &amp; post</button><button class="btn-sm" onclick="toast('Sent back for edit')">Edit</button></div>
-        </div>
-        <div class="row" style="display:block">
-          <div style="display:flex;align-items:center;gap:12px"><div class="avatar">★</div><div><div class="nm">Marcus T. · 3★</div><div class="sub">"Work was good but the tech was 40 minutes late and didn't call ahead."</div></div></div>
-          <div class="reply-box"><b>DRAFTED REPLY</b>Marcus, thank you for the honest feedback — you're absolutely right that we should have called ahead, and I'm sorry we kept you waiting. I've shared this with the team directly. We'd like to make it right; someone will reach out today.</div>
-          <div style="display:flex;gap:8px;margin-top:10px"><button class="btn-sm" onclick="toast('Reply posted to Google')">Approve &amp; post</button><button class="btn-sm" onclick="toast('Sent back for edit')">Edit</button></div>
-        </div>
+        <div class="panel-h"><span class="pt">Reply drafts — awaiting approval</span><span class="pa">on-brand, ready to post</span></div>
+        <div id="replyDrafts"></div>
       </div>
     </section>
-
   </main>
 </div>
-
 <div class="toast" id="toast"><span class="c">✓</span><span id="toastMsg"></span></div>
-
 <script>
-// ---- module switching ----
+// ============================================================
+// The Hub — interactive demo engine. All fake data, resets on refresh.
+// ============================================================
+
+// ---------- seed data (deep-copied on reset) ----------
+const SEED = {
+  rec: [
+    {id:1, nm:'John Martinez', ch:'voice', em:true, prob:'Burst pipe in basement, water actively flooding', addr:'2436 Tulip St, Philadelphia', when:'2m'},
+    {id:2, nm:'Sarah Kim', ch:'chat', em:false, prob:'Asking about AC maintenance plans and pricing', addr:'web chat · pricing page', when:'14m'},
+    {id:3, nm:'Mike Rivera', ch:'voice', em:false, prob:'Water heater leaking, pooling in utility closet', addr:'1847 E Passyunk Ave', when:'29m'},
+    {id:4, nm:'Denise Williams', ch:'form', em:false, prob:"No heat upstairs, furnace won't kick on", addr:'contact form · website', when:'41m'},
+    {id:5, nm:'Carlos Mendez', ch:'voice', em:true, prob:'Smell of gas near the water heater', addr:'88 Wharton St, Philadelphia', when:'1h'},
+    {id:6, nm:'Amy Chen', ch:'chat', em:false, prob:"Roof leak damaging ceiling after last night's storm", addr:'web chat · homepage', when:'1h'},
+  ],
+  pipeline: {
+    'New':[{nm:'Maria Delgado',v:'Kitchen remodel · $14k'},{nm:'Tom Becker',v:'AC replacement · $8k'},{nm:'Priya N.',v:'Bathroom · $11k'}],
+    'Qualified':[{nm:'James Wright',v:'Full HVAC · $9.5k'},{nm:'Anna Lee',v:'Water heater · $2.4k'}],
+    'Quoted':[{nm:'Dev Patel',v:'Furnace · $6.8k'}],
+    'Won':[{nm:'R. Foster',v:'Reactivated · $3.2k'}],
+  },
+  opsJobs: [
+    {id:1, title:'Burst pipe — 2436 Tulip St', tech:'Sam Okafor', status:'working', sub:'arrived 9:12am', pct:70, em:true},
+    {id:2, title:'AC install — 90 Pine St', tech:'Mike Rossi', status:'en route', sub:'ETA 6m', pct:35, em:false},
+    {id:3, title:'Water heater — 1847 Passyunk', tech:'Luis Vega', status:'working', sub:'on site', pct:55, em:false},
+    {id:4, title:'Furnace tune-up — 55 Reed St', tech:null, status:'unassigned', sub:'Scheduled 2:00pm', pct:0, em:false},
+  ],
+  crew: [
+    {id:'c1', nm:'Sam Okafor', role:'Plumber', status:'on job'},
+    {id:'c2', nm:'Mike Rossi', role:'HVAC', status:'en route'},
+    {id:'c3', nm:'Luis Vega', role:'Restoration', status:'on job'},
+    {id:'c4', nm:'Tanya Brown', role:'General', status:'available'},
+    {id:'c5', nm:'Dave Greco', role:'Electrician', status:'available'},
+  ],
+  invoices: [
+    {vendor:'Ferguson Supply', inv:'#FS-8841', date:'Jun 12', amt:'$2,140', status:'posted'},
+    {vendor:'Carrier Parts', inv:'#CP-2290', date:'Jun 12', amt:'$880', status:'posted'},
+    {vendor:'Grainger', inv:'#GR-5512', date:'Jun 11', amt:'$415', status:'review'},
+    {vendor:'Home Depot Pro', inv:'#HD-1903', date:'Jun 11', amt:'$1,267', status:'posted'},
+    {vendor:'Reece Plumbing', inv:'#RP-7740', date:'Jun 10', amt:'$3,090', status:'posted'},
+  ],
+  drafts: [
+    {id:1, nm:'Amy Chen', stars:5, review:'"Showed up fast and fixed my roof leak in the rain. Lifesavers."', reply:"Thank you so much, Amy! Rain or shine, we've got you — so glad we could get that leak handled fast. We're always here if anything else comes up."},
+    {id:2, nm:'Marcus T.', stars:3, review:'"Work was good but the tech was 40 minutes late and didn\'t call ahead."', reply:"Marcus, thank you for the honest feedback — you're right that we should have called ahead, and I'm sorry we kept you waiting. I've shared this with the team directly. We'd like to make it right; someone will reach out today."},
+  ],
+};
+
+// ---------- live state ----------
+let S, leadCounter, feedTimer;
+const STAGES = ['New','Qualified','Quoted','Won'];
+
+// incoming fake leads for the auto-feed
+const FEED_POOL = [
+  {nm:'Greg Sullivan', ch:'voice', em:false, prob:'AC blowing warm air, needs a look', addr:'412 Fitzwater St'},
+  {nm:'Web visitor', ch:'chat', em:false, prob:'How soon can someone come for a clogged drain?', addr:'web chat · services'},
+  {nm:'Patricia Obi', ch:'voice', em:true, prob:'No heat and a baby in the house', addr:'77 Snyder Ave'},
+  {nm:'Kevin Tran', ch:'form', em:false, prob:'Quote request: full system replacement', addr:'contact form'},
+  {nm:'Web visitor', ch:'chat', em:false, prob:'Do you service Fishtown? Thermostat issue', addr:'web chat · homepage'},
+  {nm:'Lauren Diaz', ch:'voice', em:false, prob:'Water heater making knocking noises', addr:'1502 Dickinson St'},
+  {nm:'Marcus Webb', ch:'voice', em:true, prob:'Basement flooding from a burst line', addr:'934 Morris St'},
+];
+let feedIdx = 0;
+
+function deepCopy(o){return JSON.parse(JSON.stringify(o));}
+
+function init(){
+  S = {
+    rec: deepCopy(SEED.rec),
+    pipeline: deepCopy(SEED.pipeline),
+    opsJobs: deepCopy(SEED.opsJobs),
+    crew: deepCopy(SEED.crew),
+    invoices: deepCopy(SEED.invoices),
+    drafts: deepCopy(SEED.drafts),
+    leadsToday: 14, won: 7, reviews: 37, jobId: 100,
+  };
+  leadCounter = 7;
+  feedIdx = 0;
+  renderAll();
+  startFeed();
+}
+
+function renderAll(){ renderRec(); renderPipeline(); renderOps(); renderInvoices(); renderDrafts(); }
+
+// ---------- toast ----------
+let toastT;
+function toast(msg){
+  document.getElementById('toastMsg').textContent=msg;
+  const t=document.getElementById('toast'); t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2600);
+}
+function pop(el){ if(!el) return; el.classList.remove('counter-pop'); void el.offsetWidth; el.classList.add('counter-pop'); }
+
+// ---------- RECEPTION ----------
+function initials(name){return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+function renderRec(){
+  const box=document.getElementById('recRows');
+  if(!S.rec.length){ box.innerHTML='<div class="empty">All leads routed — clean queue. New ones arrive automatically.</div>'; }
+  else box.innerHTML=S.rec.map(r=>`
+    <div class="row ${r._fresh?'fresh':''}" data-id="${r.id}">
+      <div class="avatar">${initials(r.nm)}</div>
+      <div style="flex:1;min-width:0">
+        <div class="nm">${r.nm} ${r.em?'<span class="tag em">EMERGENCY</span>':''} <span class="tag ${r.ch}">${r.ch}</span></div>
+        <div class="sub">${r.addr}</div>
+        <div class="prob" style="margin-top:3px">${r.prob}</div>
+      </div>
+      <div class="right">
+        <div class="when">${r.when} ago</div>
+        <button class="btn-sm" onclick="routeLead(${r.id})">Route →</button>
+      </div>
+    </div>`).join('');
+  S.rec.forEach(r=>r._fresh=false);
+  // counters
+  const le=document.getElementById('stLeads'); le.textContent=S.leadsToday; 
+  document.getElementById('stEmerg').textContent=S.rec.filter(r=>r.em).length;
+  const nav=document.getElementById('navCountRec'); if(nav) nav.textContent=S.rec.length;
+}
+
+function routeLead(id){
+  const i=S.rec.findIndex(r=>r.id===id); if(i<0) return;
+  const lead=S.rec[i];
+  // animate out
+  const rowEl=document.querySelector(`#recRows .row[data-id="${id}"]`);
+  if(rowEl){ rowEl.classList.add('leaving'); }
+  // create an Operations job from it
+  S.jobId++;
+  S.opsJobs.push({id:S.jobId, title:`${lead.prob.split(',')[0]} — ${lead.addr.split('·')[0].trim()}`, tech:null, status:'unassigned', sub:'just routed from Reception', pct:0, em:lead.em, _fresh:true});
+  setTimeout(()=>{
+    S.rec.splice(i,1);
+    renderRec(); renderOps();
+    pop(document.getElementById('navCountOps'));
+  },330);
+  toast(`${lead.nm.split(' ')[0]}'s lead routed to Operations`);
+}
+
+// ---------- live feed ----------
+function startFeed(){
+  clearInterval(feedTimer);
+  feedTimer=setInterval(()=>{
+    if(document.hidden) return;
+    if(S.rec.length>=9) return; // don't overflow
+    const base=FEED_POOL[feedIdx % FEED_POOL.length]; feedIdx++;
+    leadCounter++;
+    const lead={...deepCopy(base), id:1000+leadCounter, when:'now', _fresh:true};
+    S.rec.unshift(lead);
+    S.leadsToday++;
+    renderRec();
+    pop(document.getElementById('stLeads'));
+  }, 16000);
+}
+
+// ---------- SALES pipeline ----------
+function renderPipeline(){
+  const box=document.getElementById('pipeline');
+  box.innerHTML=STAGES.map(stage=>{
+    const cards=S.pipeline[stage]||[];
+    return `<div class="pcol"><h4>${stage} <span>${cards.length}</span></h4>
+      ${cards.length?cards.map((c,idx)=>`
+        <div class="pcard ${c._fresh?'fresh':''}" onclick="advanceCard('${stage}',${idx})">
+          <div class="pn">${c.nm}</div><div class="pv">${c.v}</div>
+          ${stage!=='Won'?'<div class="advance-hint">click to advance →</div>':'<div class="advance-hint" style="color:var(--green);opacity:1">✓ closed</div>'}
+        </div>`).join(''):'<div class="empty-col">empty</div>'}
+    </div>`;
+  }).join('');
+  S.pipeline['New'].forEach(c=>c._fresh=false);
+  document.getElementById('stPipe').textContent=STAGES.slice(0,3).reduce((n,s)=>n+S.pipeline[s].length,0);
+  const w=document.getElementById('stWon'); w.textContent=S.won;
+}
+function advanceCard(stage,idx){
+  const si=STAGES.indexOf(stage);
+  if(si>=STAGES.length-1){ toast('Already won 🎉'); return; }
+  const card=S.pipeline[stage].splice(idx,1)[0];
+  const next=STAGES[si+1];
+  card._fresh=true;
+  S.pipeline[next].push(card);
+  if(next==='Won'){ S.won++; toast(`${card.nm} — deal won! 🎉`); }
+  else toast(`${card.nm} → ${next}`);
+  renderPipeline();
+  pop(document.getElementById('stWon'));
+}
+
+// ---------- OPERATIONS ----------
+const STATUS_TAG={ 'working':'teal','en route':'blue','unassigned':'amber','done':'green' };
+function renderOps(){
+  const box=document.getElementById('opsJobs');
+  const active=S.opsJobs.filter(j=>j.status!=='done');
+  if(!active.length){ box.innerHTML='<div class="empty">No active jobs right now.</div>'; }
+  else box.innerHTML=active.map(j=>`
+    <div class="row ${j._fresh?'fresh':''}">
+      <div style="flex:1">
+        <div class="nm">${j.title} ${j.em?'<span class="tag em">emergency</span>':''}</div>
+        <div class="sub">${j.tech?j.tech+' · ':''}${j.sub}</div>
+        ${j.status!=='unassigned'?`<div class="bar2" style="width:120px"><i style="width:${j.pct}%"></i></div>`:''}
+      </div>
+      <div class="right">
+        <span class="tag ${STATUS_TAG[j.status]}">${j.status}</span>
+        ${j.status==='unassigned'?`<button class="btn-sm" style="margin-top:6px;display:block;margin-left:auto" onclick="assignJob(${j.id})">Assign</button>`:''}
+        ${(j.status==='working'||j.status==='en route')?`<button class="btn-sm" style="margin-top:6px;display:block;margin-left:auto" onclick="resolveJob(${j.id})">Resolve</button>`:''}
+      </div>
+    </div>`).join('');
+  S.opsJobs.forEach(j=>j._fresh=false);
+  // crew
+  document.getElementById('opsCrew').innerHTML=S.crew.map(c=>`
+    <div class="row"><div class="avatar">${initials(c.nm)}</div>
+      <div><div class="nm" style="font-size:13px">${c.nm}</div><div class="sub">${c.role}</div></div>
+      <div class="right"><span class="tag ${c.status==='available'?'green':c.status==='en route'?'blue':'amber'}">${c.status}</span></div>
+    </div>`).join('');
+  // stats
+  const done=S.opsJobs.filter(j=>j.status==='done').length;
+  const act=S.opsJobs.filter(j=>j.status!=='done').length;
+  document.getElementById('stJobs').textContent=S.opsJobs.length;
+  document.getElementById('stJobsSub').textContent=`${done} done · ${act} active`;
+  document.getElementById('stAvail').textContent=`${S.crew.filter(c=>c.status==='available').length} available`;
+  const nav=document.getElementById('navCountOps'); if(nav) nav.textContent=act;
+}
+function assignJob(id){
+  const j=S.opsJobs.find(j=>j.id===id); if(!j) return;
+  const free=S.crew.find(c=>c.status==='available');
+  if(!free){ toast('No techs available right now'); return; }
+  free.status='en route';
+  j.tech=free.nm; j.status='en route'; j.sub='ETA ~14m'; j.pct=20; j._fresh=true;
+  renderOps();
+  toast(`${free.nm} assigned · en route`);
+}
+function resolveJob(id){
+  const j=S.opsJobs.find(j=>j.id===id); if(!j) return;
+  // free the tech
+  const c=S.crew.find(c=>c.nm===j.tech); if(c) c.status='available';
+  j.status='done';
+  renderOps();
+  toast(`Job resolved — ${j.tech||'tech'} now available`);
+}
+
+// ---------- BACK OFFICE ----------
+function renderInvoices(){
+  document.getElementById('invoiceBody').innerHTML=S.invoices.map(v=>`
+    <tr><td>${v.vendor}</td><td>${v.inv}</td><td>${v.date}</td><td class="amt">${v.amt}</td>
+    <td><span class="tag ${v.status==='posted'?'green':'amber'}">${v.status}</span></td></tr>`).join('');
+}
+
+// ---------- CUSTOMER SUCCESS ----------
+function renderDrafts(){
+  const box=document.getElementById('replyDrafts');
+  if(!S.drafts.length){ box.innerHTML='<div class="empty">All replies handled. New reviews appear here for approval.</div>'; }
+  else box.innerHTML=S.drafts.map(d=>`
+    <div class="row" style="display:block">
+      <div style="display:flex;align-items:center;gap:12px"><div class="avatar">★</div>
+        <div><div class="nm">${d.nm} · ${d.stars}★</div><div class="sub">${d.review}</div></div></div>
+      <div class="reply-box"><b>DRAFTED REPLY</b>${d.reply}</div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn-sm" onclick="approveDraft(${d.id})">Approve &amp; post</button>
+        <button class="btn-sm" onclick="toast('Sent back for edit')">Edit</button>
+      </div>
+    </div>`).join('');
+  const r=document.getElementById('stReviews'); r.textContent=S.reviews;
+}
+function approveDraft(id){
+  const i=S.drafts.findIndex(d=>d.id===id); if(i<0) return;
+  const d=S.drafts[i];
+  S.drafts.splice(i,1);
+  S.reviews++;
+  renderDrafts();
+  pop(document.getElementById('stReviews'));
+  toast(`Reply to ${d.nm} posted to Google`);
+}
+
+// ---------- reset ----------
+function resetAll(){
+  init();
+  toast('Demo reset — clean slate');
+}
+
+// ---------- module switching ----------
 document.querySelectorAll('.navitem').forEach(item=>{
   item.addEventListener('click',()=>{
     document.querySelectorAll('.navitem').forEach(n=>n.classList.remove('active'));
@@ -318,39 +561,8 @@ document.querySelectorAll('.navitem').forEach(item=>{
   });
 });
 
-// ---- toast ----
-let toastT;
-function toast(msg){
-  document.getElementById('toastMsg').textContent=msg;
-  const t=document.getElementById('toast'); t.classList.add('show');
-  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2600);
-}
-
-// ---- Reception seeded leads (interactive) ----
-const REC = [
-  {nm:'John Martinez', ch:'voice', em:true, prob:'Burst pipe in basement, water actively flooding', addr:'2436 Tulip St, Philadelphia', when:'2m'},
-  {nm:'Sarah Kim', ch:'chat', em:false, prob:'Asking about AC maintenance plans and pricing', addr:'web chat · pricing page', when:'14m'},
-  {nm:'Mike Rivera', ch:'voice', em:false, prob:'Water heater leaking, pooling in utility closet', addr:'1847 E Passyunk Ave', when:'29m'},
-  {nm:'Denise Williams', ch:'form', em:false, prob:'No heat upstairs, furnace won\'t kick on', addr:'contact form · website', when:'41m'},
-  {nm:'Carlos Mendez', ch:'voice', em:true, prob:'Smell of gas near the water heater', addr:'88 Wharton St, Philadelphia', when:'1h'},
-  {nm:'Amy Chen', ch:'chat', em:false, prob:'Roof leak damaging ceiling after last night\'s storm', addr:'web chat · homepage', when:'1h'},
-];
-function recRender(){
-  document.getElementById('recRows').innerHTML = REC.map((r,i)=>`
-    <div class="row">
-      <div class="avatar">${r.nm.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
-      <div style="flex:1;min-width:0">
-        <div class="nm">${r.nm} ${r.em?'<span class="tag em">EMERGENCY</span>':''} <span class="tag ${r.ch}">${r.ch}</span></div>
-        <div class="sub">${r.addr}</div>
-        <div class="prob" style="margin-top:3px">${r.prob}</div>
-      </div>
-      <div class="right">
-        <div class="when">${r.when} ago</div>
-        <button class="btn-sm" onclick="toast('Routed to dispatch — ${r.nm.split(' ')[0]}\\'s job created')">Route</button>
-      </div>
-    </div>`).join('');
-}
-recRender();
+// ---------- boot ----------
+init();
 </script>
 </body>
 </html>
