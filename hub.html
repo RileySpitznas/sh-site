@@ -3,566 +3,738 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Hub — Spitznas &amp; Hoff Live Demo</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>The Hub — Spitznas & Hoff</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ground:#0A2E36;--ink:#0A2E36;--ink2:#42605F;--ink3:#7B9594;
-  --teal:#0E7C7B;--accent:#14B8A6;--accent-soft:#9FE3D8;
-  --surface:#F3FAF9;--surface2:#EAF6F5;--line:#D4E7E4;--white:#fff;
-  --red:#C2453F;--redbg:#FBEFEE;--blue:#3D6B9E;--bluebg:#EEF4FA;
-  --green:#2E7D5B;--greenbg:#ECF6F1;--amber:#9A6B15;--amberbg:#FAF3E5;--purple:#6B5B9E;--purplebg:#F0EEF7;
-  --disp:'Space Grotesk',sans-serif;--body:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
-}
-body{background:var(--surface);color:var(--ink);font-family:var(--body);font-size:14px;-webkit-font-smoothing:antialiased}
-.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+  :root{
+    --ink:#0A2E36; --accent:#14B8A6; --muted:#0E7C7B;
+    --surface:#F3FAF9; --surface-2:#EAF6F5; --line:#D4E7E4; --white:#FFFFFF;
+    --amber:#D97706; --amber-soft:#FEF3E2;
+    --red:#B91C1C; --red-soft:#FCEBEA;
+    --green:#15803D; --green-soft:#E6F4EA;
+    --gold:#EAB308;
+    --sidebar-w:236px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--surface);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;}
+  .mono{font-family:'DM Mono',monospace;}
 
-/* sidebar */
-.side{background:var(--ground);color:#fff;padding:22px 16px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
-.side .logo{display:flex;align-items:center;gap:9px;font-family:var(--disp);font-weight:700;font-size:15px;padding:0 6px 22px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px}
-.side .logo .mark{width:24px;height:24px;border-radius:7px;background:#fff;position:relative;flex-shrink:0}
-.side .logo .mark::after{content:'';position:absolute;inset:6px;border-radius:50%;border:2px solid var(--accent)}
-.side .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.4);padding:0 8px 8px;text-transform:uppercase}
-.navitem{display:flex;align-items:center;gap:11px;padding:11px 10px;border-radius:9px;cursor:pointer;color:rgba(255,255,255,.7);font-weight:500;font-size:13.5px;margin-bottom:2px;transition:.13s}
-.navitem:hover{background:rgba(255,255,255,.06);color:#fff}
-.navitem.active{background:var(--accent);color:#06231f}
-.navitem .ic{width:18px;height:18px;flex-shrink:0}
-.navitem .code{margin-left:auto;font-family:var(--mono);font-size:10px;opacity:.5}
-.navitem.active .code{opacity:.7}
-.side .foot{margin-top:auto;padding:14px 8px 0;border-top:1px solid rgba(255,255,255,.1)}
-.side .foot a{color:var(--accent-soft);font-size:12px;text-decoration:none;display:flex;align-items:center;gap:7px}
-.side .foot a:hover{color:#fff}
+  /* ===== Layout ===== */
+  .app{display:grid;grid-template-columns:var(--sidebar-w) 1fr;min-height:100vh;}
 
-/* main */
-.main{padding:26px 32px;overflow-y:auto;max-height:100vh}
-.head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:12px}
-.head .t .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
-.head .t h1{font-family:var(--disp);font-weight:600;font-size:26px;letter-spacing:-.02em;color:var(--ground)}
-.head .t p{color:var(--ink2);font-size:14px;margin-top:4px;max-width:60ch}
-.demo-pill{font-family:var(--mono);font-size:10.5px;color:var(--teal);background:var(--surface2);border:1px solid var(--line);border-radius:20px;padding:7px 13px;display:flex;align-items:center;gap:7px;white-space:nowrap}
-.demo-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  /* ===== Sidebar ===== */
+  .sidebar{background:var(--ink);color:#cfe6e2;display:flex;flex-direction:column;padding:20px 14px;position:sticky;top:0;height:100vh;}
+  .logo{display:flex;align-items:center;gap:11px;padding:4px 8px 20px;}
+  .logo .mark{width:34px;height:34px;border-radius:9px;background:var(--accent);display:grid;place-items:center;color:var(--ink);font-family:'Space Grotesk';font-weight:700;font-size:15px;}
+  .logo h1{font-family:'Space Grotesk';font-size:16px;font-weight:600;color:var(--white);letter-spacing:-0.3px;}
+  .logo p{font-family:'DM Mono';font-size:10px;color:var(--accent);letter-spacing:0.5px;text-transform:uppercase;}
 
-/* stat row */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
-.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-.stat .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:9px}
-.stat .v{font-family:var(--disp);font-weight:600;font-size:28px;color:var(--ground);line-height:1}
-.stat .v small{font-size:14px;color:var(--ink3);font-weight:500}
-.stat .sub{font-size:11.5px;color:var(--ink3);margin-top:5px}
-.stat .v.teal{color:var(--teal)} .stat .v.green{color:var(--green)} .stat .v.amber{color:var(--amber)} .stat .v.red{color:var(--red)}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .nav{display:flex;flex-direction:column;gap:3px;margin-top:6px;}
+  .nav-label{font-family:'DM Mono';font-size:10px;text-transform:uppercase;letter-spacing:0.6px;color:#5e8a86;padding:12px 10px 6px;}
+  .nav-item{display:flex;align-items:center;gap:11px;padding:10px 10px;border-radius:9px;cursor:pointer;color:#aacfca;font-size:14px;font-weight:500;transition:background .15s,color .15s;border:none;background:none;text-align:left;width:100%;}
+  .nav-item:hover{background:rgba(255,255,255,0.05);color:var(--white);}
+  .nav-item.active{background:var(--accent);color:var(--ink);font-weight:600;}
+  .nav-item .idx{font-family:'DM Mono';font-size:11px;opacity:.7;width:18px;}
+  .nav-item.active .idx{opacity:.9;}
+  .nav-item .tag{margin-left:auto;font-family:'DM Mono';font-size:9px;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,0.12);color:#cfe6e2;text-transform:uppercase;letter-spacing:.4px;}
+  .nav-item.active .tag{background:rgba(10,46,54,0.18);color:var(--ink);}
 
-/* panels */
-.panel{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px}
-.panel-h{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-.panel-h .pt{font-family:var(--disp);font-weight:600;font-size:15px;color:var(--ground)}
-.panel-h .pa{font-family:var(--mono);font-size:11px;color:var(--ink3)}
-.row{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--surface2)}
-.row:last-child{border-bottom:none}
-.row:hover{background:var(--surface)}
-.tag{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border-radius:4px;letter-spacing:.3px;font-weight:500;white-space:nowrap}
-.tag.voice,.tag.teal{background:var(--surface2);color:var(--teal)}
-.tag.chat,.tag.blue{background:var(--bluebg);color:var(--blue)}
-.tag.form,.tag.amber{background:var(--amberbg);color:var(--amber)}
-.tag.em,.tag.red{background:var(--redbg);color:var(--red)}
-.tag.green{background:var(--greenbg);color:var(--green)}
-.tag.purple{background:var(--purplebg);color:var(--purple)}
-.nm{font-weight:600;font-size:14px;color:var(--ground)}
-.sub{font-size:12px;color:var(--ink3);margin-top:2px}
-.prob{font-size:13px;color:var(--ink2)}
-.right{margin-left:auto;text-align:right;flex-shrink:0}
-.when{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-bottom:4px}
-.btn-sm{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 11px;font-size:12px;font-weight:500;font-family:var(--body);cursor:pointer;color:var(--teal)}
-.btn-sm:hover{background:var(--surface);border-color:var(--accent-soft)}
-.avatar{width:36px;height:36px;border-radius:9px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--teal);flex-shrink:0}
-.bar2{height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-top:7px}
-.bar2 i{display:block;height:100%;background:var(--accent);border-radius:4px}
-.two-col{display:grid;grid-template-columns:1fr 320px;gap:18px;align-items:start}
-@media(max-width:1000px){.two-col{grid-template-columns:1fr}}
-.empty{padding:30px;text-align:center;color:var(--ink3);font-size:13px}
-.stars{color:var(--amber);font-size:13px;letter-spacing:1px}
-.reply-box{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:12.5px;color:var(--ink2);margin-top:9px;font-style:italic}
-.reply-box b{color:var(--teal);font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.05em;display:block;margin-bottom:4px}
-.pipeline{display:flex;gap:10px;padding:18px}
-.pcol{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:11px;min-height:120px}
-.pcol h4{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:flex;justify-content:space-between}
-.pcard{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin-bottom:7px;font-size:12.5px}
-.pcard .pn{font-weight:600;color:var(--ground)}
-.pcard .pv{font-size:11px;color:var(--ink3);margin-top:2px}
-.invoice-tbl{width:100%;border-collapse:collapse}
-.invoice-tbl th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);padding:10px 18px;border-bottom:1px solid var(--line);font-weight:500}
-.invoice-tbl td{padding:13px 18px;border-bottom:1px solid var(--surface2);font-size:13px}
-.invoice-tbl tr:last-child td{border-bottom:none}
-.invoice-tbl .amt{font-family:var(--mono);font-weight:500;color:var(--ground)}
-.weekly{padding:18px;font-size:14px;line-height:1.7;color:var(--ink2)}
-.weekly b{color:var(--ground)}
-.weekly .hl{background:var(--surface2);border-radius:5px;padding:1px 6px;font-family:var(--mono);font-size:12px;color:var(--teal)}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ground);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;box-shadow:0 10px 30px rgba(10,46,54,.25);transition:transform .25s;z-index:90;display:flex;align-items:center;gap:9px}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast .c{color:var(--accent)}
-.module-view{display:none}
-.module-view.active{display:block;animation:fade .25s ease}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:760px){.app{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;gap:6px}.side .logo,.side .lbl,.side .foot{display:none}.navitem{flex:1;justify-content:center;padding:9px}.navitem .code,.navitem .tx{display:none}}
-/* ===== interactive additions ===== */
-.reset-btn{font-family:var(--mono);font-size:11px;color:var(--ink2);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.13s}
-.reset-btn:hover{border-color:var(--accent-soft);color:var(--teal)}
-.head-actions{display:flex;align-items:center;gap:10px}
-@keyframes slidein{from{opacity:0;transform:translateY(-10px);background:var(--surface2)}to{opacity:1;transform:translateY(0);background:transparent}}
-.row.fresh,.pcard.fresh{animation:slidein .5s ease}
-@keyframes flash{0%{background:var(--surface2)}100%{background:transparent}}
-.flash{animation:flash 1s ease}
-.row.leaving{opacity:0;transform:translateX(20px);transition:.35s}
-.pcard{cursor:pointer;transition:.13s;user-select:none}
-.pcard:hover{border-color:var(--accent-soft);box-shadow:0 2px 8px rgba(10,46,54,.06)}
-.pcard:active{transform:scale(.97)}
-.pcard .advance-hint{font-family:var(--mono);font-size:8.5px;color:var(--accent);opacity:0;margin-top:4px;transition:.13s}
-.pcard:hover .advance-hint{opacity:1}
-.empty-col{font-size:11px;color:var(--ink3);text-align:center;padding:14px 0;font-style:italic;opacity:.6}
-.btn-sm.done-state{background:var(--greenbg);color:var(--green);border-color:rgba(76,175,125,.3);pointer-events:none}
-.live-feed-note{font-family:var(--mono);font-size:10px;color:var(--ink3);display:flex;align-items:center;gap:6px;margin-left:auto}
-.live-feed-note .d{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 1.8s infinite}
-.counter-pop{animation:cpop .4s ease}
-@keyframes cpop{0%{transform:scale(1)}40%{transform:scale(1.18);color:var(--accent)}100%{transform:scale(1)}}
+  .sidebar-foot{margin-top:auto;padding-top:16px;}
+  .reset-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:9px;border:1px solid rgba(255,255,255,0.14);background:none;color:#aacfca;font-family:'DM Sans';font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;}
+  .reset-btn:hover{background:rgba(255,255,255,0.06);color:var(--white);}
+
+  /* ===== Main ===== */
+  .main{display:flex;flex-direction:column;min-width:0;}
+  .topbar{background:var(--white);border-bottom:1px solid var(--line);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;}
+  .topbar .tb-left h2{font-family:'Space Grotesk';font-size:19px;font-weight:600;letter-spacing:-0.4px;}
+  .topbar .tb-left p{font-size:13px;color:var(--muted);margin-top:1px;}
+  .play-btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--white);border:none;border-radius:10px;padding:10px 16px;font-family:'DM Sans';font-size:14px;font-weight:600;cursor:pointer;transition:background .15s,transform .1s;}
+  .play-btn:hover{background:#0c3942;}
+  .play-btn:active{transform:scale(.97);}
+  .play-btn:disabled{opacity:.5;cursor:default;}
+  .play-btn svg{width:15px;height:15px;}
+
+  .view{padding:26px 28px 60px;max-width:1080px;}
+  .view[hidden]{display:none;}
+
+  /* ===== Shared bits ===== */
+  .row{display:grid;gap:16px;}
+  .cols-2{grid-template-columns:1fr 1fr;}
+  .cols-3{grid-template-columns:repeat(3,1fr);}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:20px;}
+  .card.pad-lg{padding:24px;}
+  .card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .card-h h3{font-family:'Space Grotesk';font-size:15px;font-weight:600;letter-spacing:-0.2px;}
+  .eyebrow{font-family:'DM Mono';font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
+  .lead{font-size:14px;color:var(--muted);margin-bottom:18px;max-width:640px;}
+  .stat-big{font-family:'Space Grotesk';font-size:34px;font-weight:600;letter-spacing:-1px;line-height:1;}
+  .stat-big.green{color:var(--green);}
+  .stat-sub{font-family:'DM Mono';font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:8px;}
+
+  .pill{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono';font-size:11px;padding:4px 9px;border-radius:7px;font-weight:500;}
+  .pill.emerg{background:var(--red-soft);color:var(--red);}
+  .pill.ok{background:var(--green-soft);color:var(--green);}
+  .pill.warn{background:var(--amber-soft);color:var(--amber);}
+  .pill.live{background:var(--surface-2);color:var(--muted);}
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .pill.live .dot{background:var(--accent);animation:blink 1.6s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  /* problem banner */
+  .problem{display:flex;gap:14px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-bottom:20px;}
+  .problem .pn{font-family:'Space Grotesk';font-size:24px;font-weight:700;color:var(--accent);line-height:1;flex-shrink:0;}
+  .problem .pt{font-size:13.5px;color:var(--ink);}
+  .problem .pt b{font-weight:600;}
+
+  /* ===== Reception: call sim ===== */
+  .phone{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);}
+  .phone-head{display:flex;align-items:center;gap:11px;padding:13px 16px;background:var(--white);border-bottom:1px solid var(--line);}
+  .phone-head .ava{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--accent);display:grid;place-items:center;font-family:'DM Mono';font-size:13px;}
+  .phone-head .who{font-weight:600;font-size:14px;}
+  .phone-head .num{font-family:'DM Mono';font-size:11px;color:var(--muted);}
+  .transcript{padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-height:230px;max-height:300px;overflow-y:auto;}
+  .bubble{max-width:82%;padding:9px 13px;border-radius:13px;font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(6px);animation:rise .35s forwards;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  .bubble.caller{align-self:flex-start;background:var(--white);border:1px solid var(--line);border-bottom-left-radius:4px;}
+  .bubble.ai{align-self:flex-end;background:var(--ink);color:var(--white);border-bottom-right-radius:4px;}
+  .bubble .spkr{font-family:'DM Mono';font-size:9px;text-transform:uppercase;letter-spacing:.5px;opacity:.6;margin-bottom:3px;}
+  .typing{align-self:flex-end;display:flex;gap:4px;padding:11px 14px;background:var(--ink);border-radius:13px;border-bottom-right-radius:4px;}
+  .typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite;}
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-5px);opacity:1;}}
+
+  .capture{border-top:1px solid var(--line);padding:14px 16px;background:var(--white);}
+  .capture .cap-h{font-family:'DM Mono';font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px;}
+  .field{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px;}
+  .field:last-child{border-bottom:none;}
+  .field .k{color:var(--muted);font-family:'DM Mono';font-size:11px;text-transform:uppercase;letter-spacing:.4px;}
+  .field .v{font-weight:600;opacity:0;transition:opacity .4s;}
+  .field .v.show{opacity:1;}
+  .field .v.empty{color:var(--line);font-weight:400;}
+
+  /* sms thread */
+  .sms{display:flex;flex-direction:column;gap:8px;}
+  .sms-b{max-width:80%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.4;}
+  .sms-b.them{align-self:flex-start;background:var(--surface-2);border-bottom-left-radius:4px;}
+  .sms-b.us{align-self:flex-end;background:var(--accent);color:var(--ink);border-bottom-right-radius:4px;}
+  .sms-time{font-family:'DM Mono';font-size:9px;color:var(--muted);align-self:center;margin:4px 0;}
+
+  /* ===== Sales: race ===== */
+  .race{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .lane{border:1px solid var(--line);border-radius:13px;padding:16px;background:var(--surface);position:relative;overflow:hidden;}
+  .lane.win{border-color:var(--accent);background:#F0FBF9;}
+  .lane h4{font-size:13px;font-weight:600;margin-bottom:3px;}
+  .lane .sub{font-family:'DM Mono';font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;}
+  .timer{font-family:'Space Grotesk';font-size:30px;font-weight:600;letter-spacing:-1px;margin:12px 0 4px;}
+  .lane.win .timer{color:var(--accent);}
+  .lane.lose .timer{color:var(--red);}
+  .track{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;margin-top:8px;}
+  .track .fill{height:100%;width:0;background:var(--muted);border-radius:3px;transition:width .1s linear;}
+  .lane.win .track .fill{background:var(--accent);}
+  .lane.lose .track .fill{background:var(--red);}
+  .verdict{margin-top:12px;font-size:13px;font-weight:600;opacity:0;transition:opacity .4s;}
+  .verdict.show{opacity:1;}
+  .lane.win .verdict{color:var(--green);}
+  .lane.lose .verdict{color:var(--red);}
+
+  .draft{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:15px;font-size:13.5px;line-height:1.55;white-space:pre-wrap;min-height:120px;}
+  .draft .ph{color:var(--muted);}
+
+  /* ===== Operations: dispatch ===== */
+  .ops-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;}
+  .jobcol{display:flex;flex-direction:column;gap:10px;}
+  .jobcard{border:1px solid var(--line);border-radius:12px;background:var(--white);padding:13px 15px;transition:transform .35s,opacity .35s,border-color .2s;}
+  .jobcard.assigned{border-color:var(--accent);background:#F0FBF9;}
+  .jobcard .jc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+  .jobcard .jc-cust{font-weight:600;font-size:14px;}
+  .jobcard .jc-svc{font-size:12.5px;color:var(--muted);}
+  .jobcard .jc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+  .jobcard .jc-tech{font-family:'DM Mono';font-size:11px;color:var(--ink);opacity:0;transition:opacity .4s;}
+  .jobcard.assigned .jc-tech{opacity:1;}
+  .minibtn{font-family:'DM Sans';font-size:12px;font-weight:600;padding:6px 12px;border-radius:8px;border:none;cursor:pointer;background:var(--ink);color:var(--white);transition:background .15s;}
+  .minibtn:hover{background:#0c3942;}
+  .minibtn:disabled{opacity:.4;cursor:default;}
+
+  .map{position:relative;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);height:300px;overflow:hidden;}
+  .map svg{position:absolute;inset:0;width:100%;height:100%;}
+  .legend{position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,0.92);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-family:'DM Mono';font-size:10px;color:var(--muted);display:flex;flex-direction:column;gap:4px;}
+  .legend .li{display:flex;align-items:center;gap:6px;}
+  .legend .sw{width:8px;height:8px;border-radius:50%;}
+
+  /* ===== Back office ===== */
+  .invoice{border:1px solid var(--line);border-radius:12px;background:var(--white);overflow:hidden;}
+  .invoice .iv-head{background:var(--surface-2);padding:12px 15px;font-family:'DM Mono';font-size:11px;color:var(--muted);display:flex;justify-content:space-between;}
+  .invoice .iv-body{padding:8px 15px;}
+  .iv-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13px;opacity:0;transform:translateX(-6px);}
+  .iv-row.show{opacity:1;transform:none;transition:all .3s;}
+  .iv-row:last-child{border-bottom:none;font-weight:600;}
+  .summary{font-size:14px;line-height:1.7;}
+  .summary b{font-weight:600;}
+  .summary .hl{background:var(--green-soft);color:var(--green);padding:1px 6px;border-radius:5px;font-weight:600;}
+  .summary .hlr{background:var(--amber-soft);color:var(--amber);padding:1px 6px;border-radius:5px;font-weight:600;}
+
+  /* ===== Customer success ===== */
+  .review{border:1px solid var(--line);border-radius:12px;background:var(--white);padding:15px;margin-bottom:12px;}
+  .review .rv-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .review .rv-ava{width:32px;height:32px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font-family:'DM Mono';font-size:12px;color:var(--muted);}
+  .review .rv-name{font-weight:600;font-size:13.5px;}
+  .stars{color:var(--gold);font-size:14px;letter-spacing:1px;}
+  .stars .off{color:var(--line);}
+  .review .rv-text{font-size:13.5px;color:var(--ink);line-height:1.5;}
+  .reply{margin-top:12px;border-left:2px solid var(--accent);background:var(--surface);padding:11px 13px;border-radius:0 9px 9px 0;font-size:13px;line-height:1.5;}
+  .reply .rl-h{font-family:'DM Mono';font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:5px;}
+
+  .rating-hero{display:flex;align-items:center;gap:18px;}
+  .rating-num{font-family:'Space Grotesk';font-size:46px;font-weight:600;letter-spacing:-1.5px;line-height:1;}
+
+  /* ===== Overview / activity feed ===== */
+  .ov-hero{background:var(--ink);color:var(--white);border-radius:16px;padding:28px;margin-bottom:18px;position:relative;overflow:hidden;}
+  .ov-hero h2{font-family:'Space Grotesk';font-size:26px;font-weight:600;letter-spacing:-0.6px;margin-bottom:6px;}
+  .ov-hero p{color:#bfe0db;font-size:14px;max-width:520px;}
+  .ov-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;}
+  .ovm{background:var(--white);border:1px solid var(--line);border-radius:13px;padding:16px;}
+  .ovm .n{font-family:'Space Grotesk';font-size:24px;font-weight:600;letter-spacing:-.6px;}
+  .ovm .n.green{color:var(--green);}
+  .ovm .l{font-family:'DM Mono';font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-top:6px;}
+
+  .feed{display:flex;flex-direction:column;}
+  .feed-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px;animation:rise .4s;}
+  .feed-item:last-child{border-bottom:none;}
+  .feed-dot{width:9px;height:9px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+  .feed-item .ft{flex:1;}
+  .feed-item .fmod{font-family:'DM Mono';font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);}
+  .feed-item .fwhen{font-family:'DM Mono';font-size:11px;color:var(--muted);}
+  .feed-item b{font-weight:600;}
+
+  .journey{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:14px;}
+  .jstep{display:flex;align-items:center;gap:8px;}
+  .jbox{border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-size:12.5px;font-weight:600;background:var(--white);color:var(--ink);transition:all .3s;}
+  .jbox.lit{border-color:var(--accent);background:#F0FBF9;color:var(--ink);}
+  .jarrow{color:var(--line);font-size:14px;transition:color .3s;}
+  .jarrow.lit{color:var(--accent);}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--white);padding:13px 20px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.2,.8,.2,1);z-index:80;box-shadow:0 12px 36px -10px rgba(10,46,54,.4);}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .toast .ck{color:var(--accent);}
+
+  .hint{font-family:'DM Mono';font-size:11px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:6px;}
+
+  @media(max-width:880px){
+    .app{grid-template-columns:1fr;}
+    .sidebar{position:relative;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;}
+    .nav{flex-direction:row;flex-wrap:wrap;}
+    .nav-label{display:none;}.sidebar-foot{margin:0 0 0 auto;padding:0;}
+    .cols-2,.cols-3,.race,.ops-grid,.ov-metrics{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
 <div class="app">
-  <aside class="side">
-    <div class="logo"><span class="mark"></span>The Hub</div>
-    <div class="lbl">Modules</div>
-    <div class="navitem active" data-mod="reception">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span class="tx">Reception</span><span class="code" id="navCountRec">01</span>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="mark">S&amp;H</div>
+      <div><h1>The Hub</h1><p>Spitznas &amp; Hoff</p></div>
     </div>
-    <div class="navitem" data-mod="sales">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
-      <span class="tx">Sales</span><span class="code">02</span>
-    </div>
-    <div class="navitem" data-mod="operations">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-      <span class="tx">Operations</span><span class="code" id="navCountOps">03</span>
-    </div>
-    <div class="navitem" data-mod="backoffice">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
-      <span class="tx">Back Office</span><span class="code">04</span>
-    </div>
-    <div class="navitem" data-mod="success">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
-      <span class="tx">Customer Success</span><span class="code">05</span>
-    </div>
-    <div class="foot">
-      <a href="index.html"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m12 19-7-7 7-7M5 12h14"/></svg> Back to site</a>
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-view="overview"><span class="idx">◎</span> Overview</button>
+      <div class="nav-label">Modules</div>
+      <button class="nav-item" data-view="reception"><span class="idx">01</span> Reception <span class="tag">live</span></button>
+      <button class="nav-item" data-view="sales"><span class="idx">02</span> Sales</button>
+      <button class="nav-item" data-view="operations"><span class="idx">03</span> Operations</button>
+      <button class="nav-item" data-view="backoffice"><span class="idx">04</span> Back Office</button>
+      <button class="nav-item" data-view="success"><span class="idx">05</span> Customer Success</button>
+    </nav>
+    <div class="sidebar-foot">
+      <button class="reset-btn" onclick="resetAll()">↺ Reset demo</button>
     </div>
   </aside>
 
-  <main class="main">
-    <!-- RECEPTION -->
-    <section class="module-view active" id="reception">
-      <div class="head">
-        <div class="t"><div class="eyebrow">Module 01</div><h1>Reception</h1><p>Every call, chat, and form — captured, qualified, and routed in one place. Try routing a lead; watch it flow to Operations.</p></div>
-        <div class="head-actions">
-          <div class="demo-pill"><span class="dot"></span>LIVE DEMO</div>
-          <button class="reset-btn" onclick="resetAll()"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>Reset demo</button>
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <div class="topbar">
+      <div class="tb-left" id="tbLeft">
+        <h2>Overview</h2>
+        <p>One dashboard. Every channel. One source of truth.</p>
+      </div>
+      <div id="tbRight"></div>
+    </div>
+
+    <!-- ===== OVERVIEW ===== -->
+    <section class="view" id="view-overview">
+      <div class="ov-hero">
+        <h2>Everything your business says yes to — in one place.</h2>
+        <p>A call, a web form, a review request, a dispatch — they all land here. Watch one customer move through every module, start to finish.</p>
+        <div class="journey" id="journey">
+          <div class="jstep"><div class="jbox" id="j1">Call comes in</div></div>
+          <span class="jarrow" id="ja1">→</span>
+          <div class="jstep"><div class="jbox" id="j2">Lead captured</div></div>
+          <span class="jarrow" id="ja2">→</span>
+          <div class="jstep"><div class="jbox" id="j3">Tech dispatched</div></div>
+          <span class="jarrow" id="ja3">→</span>
+          <div class="jstep"><div class="jbox" id="j4">Job done</div></div>
+          <span class="jarrow" id="ja4">→</span>
+          <div class="jstep"><div class="jbox" id="j5">Review earned</div></div>
         </div>
       </div>
-      <div class="stats">
-        <div class="stat"><div class="k">Leads today</div><div class="v teal" id="stLeads">14</div><div class="sub">+3 vs yesterday</div></div>
-        <div class="stat"><div class="k">Answered 24/7</div><div class="v">100<small>%</small></div><div class="sub">0 missed</div></div>
-        <div class="stat"><div class="k">Avg response</div><div class="v green">1.2<small>s</small></div><div class="sub">to first reply</div></div>
-        <div class="stat"><div class="k">Emergencies</div><div class="v red" id="stEmerg">2</div><div class="sub">routed instantly</div></div>
+
+      <div class="ov-metrics">
+        <div class="ovm"><div class="n green" id="ovRevenue">$0</div><div class="l">Revenue recovered</div></div>
+        <div class="ovm"><div class="n" id="ovCaptured">0</div><div class="l">Leads captured</div></div>
+        <div class="ovm"><div class="n" id="ovJobs">0</div><div class="l">Jobs dispatched</div></div>
+        <div class="ovm"><div class="n" id="ovRating">4.6★</div><div class="l">Avg. rating</div></div>
       </div>
-      <div class="panel">
-        <div class="panel-h"><span class="pt">Incoming leads</span><span class="live-feed-note"><span class="d"></span>auto-capturing · all channels</span></div>
-        <div id="recRows"></div>
+
+      <div class="card pad-lg">
+        <div class="card-h"><h3>Activity feed</h3><span class="pill live"><span class="dot"></span>Live</span></div>
+        <div class="feed" id="feed">
+          <div class="feed-item"><div class="feed-dot" style="background:var(--accent)"></div><div class="ft"><span class="fmod">Reception</span><br>After-hours call captured — <b>burst pipe, emergency</b></div><span class="fwhen">2m ago</span></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--gold)"></div><div class="ft"><span class="fmod">Customer Success</span><br>New <b>5★ review</b> from Maria T.</div><span class="fwhen">18m ago</span></div>
+          <div class="feed-item"><div class="feed-dot" style="background:var(--green)"></div><div class="ft"><span class="fmod">Operations</span><br>Job completed — <b>Dave R. dispatched & resolved</b></div><span class="fwhen">41m ago</span></div>
+        </div>
+        <div class="hint">▶ Press <b>&nbsp;Run the journey&nbsp;</b> up top to watch a customer flow through all five modules.</div>
       </div>
     </section>
 
-    <!-- SALES -->
-    <section class="module-view" id="sales">
-      <div class="head">
-        <div class="t"><div class="eyebrow">Module 02</div><h1>Sales</h1><p>Responds in seconds, qualifies, and revives dormant customers. Click a card to advance it through the pipeline.</p></div>
-        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="k">In pipeline</div><div class="v teal" id="stPipe">10</div><div class="sub">$96k potential</div></div>
-        <div class="stat"><div class="k">Responded &lt;60s</div><div class="v green">100<small>%</small></div><div class="sub">speed-to-lead</div></div>
-        <div class="stat"><div class="k">Win-back sent</div><div class="v">42</div><div class="sub">dormant customers</div></div>
-        <div class="stat"><div class="k">Won</div><div class="v amber" id="stWon">7</div><div class="sub">this month</div></div>
-      </div>
-      <div class="panel">
-        <div class="panel-h"><span class="pt">Lead pipeline</span><span class="pa">click a card to advance →</span></div>
-        <div class="pipeline" id="pipeline"></div>
-      </div>
-    </section>
-
-    <!-- OPERATIONS -->
-    <section class="module-view" id="operations">
-      <div class="head">
-        <div class="t"><div class="eyebrow">Module 03</div><h1>Operations</h1><p>Right tech, right job, right time. Assign techs and resolve jobs — routed leads from Reception land here.</p></div>
-        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="k">Jobs today</div><div class="v teal" id="stJobs">9</div><div class="sub" id="stJobsSub">6 done · 3 active</div></div>
-        <div class="stat"><div class="k">Techs on duty</div><div class="v">5</div><div class="sub" id="stAvail">2 available</div></div>
-        <div class="stat"><div class="k">Avg ETA</div><div class="v green">18<small>m</small></div><div class="sub">to site</div></div>
-        <div class="stat"><div class="k">Utilization</div><div class="v amber">82<small>%</small></div><div class="sub">crew capacity</div></div>
-      </div>
-      <div class="two-col">
-        <div class="panel">
-          <div class="panel-h"><span class="pt">Active jobs</span><span class="pa">live status</span></div>
-          <div id="opsJobs"></div>
+    <!-- ===== RECEPTION ===== -->
+    <section class="view" id="view-reception" hidden>
+      <div class="problem"><div class="pn">85%</div><div class="pt"><b>of callers who don't reach a live person never call back</b> — they call the next company on Google. 31% of emergency calls come in after hours, when nobody's at the desk.</div></div>
+      <div class="row cols-2">
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div class="phone">
+            <div class="phone-head">
+              <div class="ava">📞</div>
+              <div><div class="who" id="callerName">Incoming call…</div><div class="num">+1 (267) 555-0188</div></div>
+              <span class="pill live" style="margin-left:auto;"><span class="dot"></span>On call</span>
+            </div>
+            <div class="transcript" id="transcript"></div>
+            <div class="capture">
+              <div class="cap-h">Captured by AI — verified, structured, logged</div>
+              <div class="field"><span class="k">Name</span><span class="v empty" id="fName">—</span></div>
+              <div class="field"><span class="k">Service</span><span class="v empty" id="fSvc">—</span></div>
+              <div class="field"><span class="k">Address</span><span class="v empty" id="fAddr">—</span></div>
+              <div class="field"><span class="k">Priority</span><span class="v empty" id="fPri">—</span></div>
+            </div>
+          </div>
         </div>
-        <div class="panel">
-          <div class="panel-h"><span class="pt">Crew</span></div>
-          <div id="opsCrew"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BACK OFFICE -->
-    <section class="module-view" id="backoffice">
-      <div class="head">
-        <div class="t"><div class="eyebrow">Module 04</div><h1>Back Office</h1><p>Pulls data off invoices and forms, reconciles the books, and turns your numbers into a plain-language read.</p></div>
-        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="k">Invoices processed</div><div class="v teal">128</div><div class="sub">this month · auto</div></div>
-        <div class="stat"><div class="k">Hours saved</div><div class="v green">31<small>h</small></div><div class="sub">vs manual entry</div></div>
-        <div class="stat"><div class="k">Exceptions</div><div class="v amber" id="stExc">4</div><div class="sub">need review</div></div>
-        <div class="stat"><div class="k">Outstanding AR</div><div class="v">$18<small>.4k</small></div><div class="sub">6 invoices</div></div>
-      </div>
-      <div class="two-col">
-        <div class="panel">
-          <div class="panel-h"><span class="pt">Recently extracted</span><span class="pa">invoice → books, no keying</span></div>
-          <table class="invoice-tbl">
-            <thead><tr><th>Vendor</th><th>Invoice</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
-            <tbody id="invoiceBody"></tbody>
-          </table>
-        </div>
-        <div class="panel">
-          <div class="panel-h"><span class="pt">This week, in plain English</span></div>
-          <div class="weekly">
-            Revenue was <span class="hl">$42,180</span>, up <b>12%</b> from last week. Your three biggest jobs were all HVAC installs. <br><br>
-            Material costs ran <span class="hl">$11,200</span> — a little high relative to revenue, mostly the Ferguson and Reece orders. <br><br>
-            <b>Watch:</b> 6 invoices totaling <span class="hl">$18.4k</span> are now 30+ days outstanding. <button class="btn-sm" style="margin-top:8px" onclick="toast('Payment reminders sent to 6 customers')">Send reminders</button>
+        <div>
+          <div class="card" style="margin-bottom:16px;">
+            <div class="eyebrow">Revenue recovered — after-hours calls captured</div>
+            <div class="stat-big green" id="recRevenue" style="margin-top:10px;">$0</div>
+            <div class="stat-sub">This call alone: an emergency job worth $850–$1,200</div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>Missed-call text-back</h3><span class="pill ok"><span class="dot"></span>47 sec</span></div>
+            <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;">If a call slips through, the AI texts back in under a minute — beating the 4.2-hour industry-average callback.</p>
+            <div class="sms" id="smsThread">
+              <div class="sms-time">Missed call · 8:42 PM</div>
+              <div class="sms-b us">Hi, this is Apex Home Services — sorry we missed you! What's going on and what's the address? We'll get someone out fast.</div>
+              <div class="sms-b them">Water heater burst, flooding the basement. 1140 Frankford Ave</div>
+              <div class="sms-b us">Got it — flagged as emergency. A tech is being dispatched now. You'll get a text when they're en route.</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CUSTOMER SUCCESS -->
-    <section class="module-view" id="success">
-      <div class="head">
-        <div class="t"><div class="eyebrow">Module 05</div><h1>Customer Success</h1><p>Asks happy customers for reviews, drafts on-brand replies, and keeps you top of mind. Approve a draft to post it.</p></div>
-        <div class="head-actions"><div class="demo-pill"><span class="dot"></span>LIVE DEMO</div></div>
+    <!-- ===== SALES ===== -->
+    <section class="view" id="view-sales" hidden>
+      <div class="problem"><div class="pn">21×</div><div class="pt">Responding within <b>5 minutes makes you 21× more likely to convert</b> than waiting 30. The industry-average callback is 4.2 hours — by then 67% have already booked someone else.</div></div>
+      <div class="card pad-lg" style="margin-bottom:16px;">
+        <div class="card-h"><h3>Speed-to-lead race</h3><span class="eyebrow">Same lead, two response times</span></div>
+        <div class="race">
+          <div class="lane lose" id="laneYou">
+            <h4>Manual callback</h4><div class="sub">Industry average</div>
+            <div class="timer" id="timerYou">0:00</div>
+            <div class="track"><div class="fill" id="fillYou"></div></div>
+            <div class="verdict" id="verdictYou">✕ Lead booked a competitor</div>
+          </div>
+          <div class="lane win" id="laneAI">
+            <h4>S&amp;H Sales agent</h4><div class="sub">Auto-response</div>
+            <div class="timer" id="timerAI">0:00</div>
+            <div class="track"><div class="fill" id="fillAI"></div></div>
+            <div class="verdict" id="verdictAI">✓ Lead engaged & qualified</div>
+          </div>
+        </div>
       </div>
-      <div class="stats">
-        <div class="stat"><div class="k">Avg rating</div><div class="v amber">4.9<small>★</small></div><div class="sub">+0.3 in 90 days</div></div>
-        <div class="stat"><div class="k">Reviews this month</div><div class="v teal" id="stReviews">37</div><div class="sub">+22 vs last</div></div>
-        <div class="stat"><div class="k">Request → review</div><div class="v green">41<small>%</small></div><div class="sub">conversion</div></div>
-        <div class="stat"><div class="k">Replied</div><div class="v">100<small>%</small></div><div class="sub">avg 2h</div></div>
-      </div>
-      <div class="panel">
-        <div class="panel-h"><span class="pt">Review requests</span><span class="pa">auto-sent after job complete</span></div>
-        <div class="row"><div class="avatar">JM</div><div><div class="nm">John Martinez</div><div class="sub">Burst pipe repair · completed today</div></div><div class="right"><span class="tag teal">request sent</span></div></div>
-        <div class="row"><div class="avatar">AC</div><div><div class="nm">Amy Chen</div><div class="sub">Roof leak · 5★ left</div><div class="stars">★★★★★</div></div><div class="right"><span class="tag green">reviewed</span></div></div>
-      </div>
-      <div class="panel">
-        <div class="panel-h"><span class="pt">Reply drafts — awaiting approval</span><span class="pa">on-brand, ready to post</span></div>
-        <div id="replyDrafts"></div>
+      <div class="card pad-lg">
+        <div class="card-h"><h3>Dormant-customer win-back</h3><span class="eyebrow">11 months since last service</span></div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px;">The AI finds customers due for recurring service and drafts a personal nudge — the most reliable revenue is the customers you already have.</p>
+        <div class="draft" id="winbackDraft"><span class="ph">Press "Draft win-back" to generate…</span></div>
       </div>
     </section>
-  </main>
-</div>
-<div class="toast" id="toast"><span class="c">✓</span><span id="toastMsg"></span></div>
-<script>
-// ============================================================
-// The Hub — interactive demo engine. All fake data, resets on refresh.
-// ============================================================
 
-// ---------- seed data (deep-copied on reset) ----------
-const SEED = {
-  rec: [
-    {id:1, nm:'John Martinez', ch:'voice', em:true, prob:'Burst pipe in basement, water actively flooding', addr:'2436 Tulip St, Philadelphia', when:'2m'},
-    {id:2, nm:'Sarah Kim', ch:'chat', em:false, prob:'Asking about AC maintenance plans and pricing', addr:'web chat · pricing page', when:'14m'},
-    {id:3, nm:'Mike Rivera', ch:'voice', em:false, prob:'Water heater leaking, pooling in utility closet', addr:'1847 E Passyunk Ave', when:'29m'},
-    {id:4, nm:'Denise Williams', ch:'form', em:false, prob:"No heat upstairs, furnace won't kick on", addr:'contact form · website', when:'41m'},
-    {id:5, nm:'Carlos Mendez', ch:'voice', em:true, prob:'Smell of gas near the water heater', addr:'88 Wharton St, Philadelphia', when:'1h'},
-    {id:6, nm:'Amy Chen', ch:'chat', em:false, prob:"Roof leak damaging ceiling after last night's storm", addr:'web chat · homepage', when:'1h'},
-  ],
-  pipeline: {
-    'New':[{nm:'Maria Delgado',v:'Kitchen remodel · $14k'},{nm:'Tom Becker',v:'AC replacement · $8k'},{nm:'Priya N.',v:'Bathroom · $11k'}],
-    'Qualified':[{nm:'James Wright',v:'Full HVAC · $9.5k'},{nm:'Anna Lee',v:'Water heater · $2.4k'}],
-    'Quoted':[{nm:'Dev Patel',v:'Furnace · $6.8k'}],
-    'Won':[{nm:'R. Foster',v:'Reactivated · $3.2k'}],
-  },
-  opsJobs: [
-    {id:1, title:'Burst pipe — 2436 Tulip St', tech:'Sam Okafor', status:'working', sub:'arrived 9:12am', pct:70, em:true},
-    {id:2, title:'AC install — 90 Pine St', tech:'Mike Rossi', status:'en route', sub:'ETA 6m', pct:35, em:false},
-    {id:3, title:'Water heater — 1847 Passyunk', tech:'Luis Vega', status:'working', sub:'on site', pct:55, em:false},
-    {id:4, title:'Furnace tune-up — 55 Reed St', tech:null, status:'unassigned', sub:'Scheduled 2:00pm', pct:0, em:false},
-  ],
-  crew: [
-    {id:'c1', nm:'Sam Okafor', role:'Plumber', status:'on job'},
-    {id:'c2', nm:'Mike Rossi', role:'HVAC', status:'en route'},
-    {id:'c3', nm:'Luis Vega', role:'Restoration', status:'on job'},
-    {id:'c4', nm:'Tanya Brown', role:'General', status:'available'},
-    {id:'c5', nm:'Dave Greco', role:'Electrician', status:'available'},
-  ],
-  invoices: [
-    {vendor:'Ferguson Supply', inv:'#FS-8841', date:'Jun 12', amt:'$2,140', status:'posted'},
-    {vendor:'Carrier Parts', inv:'#CP-2290', date:'Jun 12', amt:'$880', status:'posted'},
-    {vendor:'Grainger', inv:'#GR-5512', date:'Jun 11', amt:'$415', status:'review'},
-    {vendor:'Home Depot Pro', inv:'#HD-1903', date:'Jun 11', amt:'$1,267', status:'posted'},
-    {vendor:'Reece Plumbing', inv:'#RP-7740', date:'Jun 10', amt:'$3,090', status:'posted'},
-  ],
-  drafts: [
-    {id:1, nm:'Amy Chen', stars:5, review:'"Showed up fast and fixed my roof leak in the rain. Lifesavers."', reply:"Thank you so much, Amy! Rain or shine, we've got you — so glad we could get that leak handled fast. We're always here if anything else comes up."},
-    {id:2, nm:'Marcus T.', stars:3, review:'"Work was good but the tech was 40 minutes late and didn\'t call ahead."', reply:"Marcus, thank you for the honest feedback — you're right that we should have called ahead, and I'm sorry we kept you waiting. I've shared this with the team directly. We'd like to make it right; someone will reach out today."},
-  ],
+    <!-- ===== OPERATIONS ===== -->
+    <section class="view" id="view-operations" hidden>
+      <div class="problem"><div class="pn">1.4</div><div class="pt">Automated dispatch means <b>1.4 more jobs per tech per day</b> and 22–31% fewer missed appointments — vs the old way: printouts on the floor and calling techs to find out where they are.</div></div>
+      <div class="ops-grid">
+        <div>
+          <div class="card-h"><h3>Unassigned jobs</h3><span class="eyebrow" id="opsCount">3 waiting</span></div>
+          <div class="jobcol" id="jobcol">
+            <div class="jobcard" data-job="1">
+              <div class="jc-top"><div><div class="jc-cust">M. Alvarez</div><div class="jc-svc">No-heat call · Fishtown</div></div><span class="pill emerg"><span class="dot"></span>Emergency</span></div>
+              <div class="jc-foot"><span class="jc-tech" id="tech1">→ Assigned: Dave R. (2.1 mi)</span><button class="minibtn" onclick="assignJob(1)">Auto-assign</button></div>
+            </div>
+            <div class="jobcard" data-job="2">
+              <div class="jc-top"><div><div class="jc-cust">T. Nguyen</div><div class="jc-svc">AC tune-up · Northern Liberties</div></div><span class="pill warn">Standard</span></div>
+              <div class="jc-foot"><span class="jc-tech" id="tech2">→ Assigned: Sam K. (1.4 mi)</span><button class="minibtn" onclick="assignJob(2)">Auto-assign</button></div>
+            </div>
+            <div class="jobcard" data-job="3">
+              <div class="jc-top"><div><div class="jc-cust">R. Patel</div><div class="jc-svc">Drain backup · Kensington</div></div><span class="pill warn">Standard</span></div>
+              <div class="jc-foot"><span class="jc-tech" id="tech3">→ Assigned: Dave R. (3.0 mi)</span><button class="minibtn" onclick="assignJob(3)">Auto-assign</button></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card-h"><h3>Crew map</h3><span class="eyebrow">Assign by who's closest</span></div>
+          <div class="map">
+            <svg viewBox="0 0 400 300" id="mapSvg">
+              <!-- streets -->
+              <g stroke="#D4E7E4" stroke-width="2">
+                <line x1="0" y1="80" x2="400" y2="70"/><line x1="0" y1="160" x2="400" y2="155"/>
+                <line x1="0" y1="235" x2="400" y2="240"/><line x1="90" y1="0" x2="100" y2="300"/>
+                <line x1="200" y1="0" x2="205" y2="300"/><line x1="310" y1="0" x2="300" y2="300"/>
+              </g>
+              <!-- job pins -->
+              <g id="jobPins"></g>
+              <!-- tech pins -->
+              <g id="techPins"></g>
+            </svg>
+            <div class="legend">
+              <div class="li"><span class="sw" style="background:var(--ink)"></span>Technician</div>
+              <div class="li"><span class="sw" style="background:var(--accent)"></span>Job site</div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:16px;">
+            <div class="eyebrow">Auto-fires on assignment</div>
+            <div class="sms" style="margin-top:10px;" id="opsSms">
+              <div class="sms-b us">📍 Your technician Dave is on the way — ETA 12 min. Reply here with any access notes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BACK OFFICE ===== -->
+    <section class="view" id="view-backoffice" hidden>
+      <div class="problem"><div class="pn">5</div><div class="pt">Owners stitch together <b>5 disconnected tools</b> and a spreadsheet to know where the money is. The AI reads the paperwork and tells you in plain English.</div></div>
+      <div class="row cols-2">
+        <div class="card">
+          <div class="card-h"><h3>Invoice → structured data</h3><span class="eyebrow">Drag, drop, done</span></div>
+          <p style="font-size:12.5px;color:var(--muted);margin-bottom:14px;">The AI reads a supplier invoice and pulls every line item into clean, reconciled data — no manual entry.</p>
+          <div class="invoice">
+            <div class="iv-head"><span>INVOICE #4471 · Ferguson Supply</span><span id="ivDate">—</span></div>
+            <div class="iv-body" id="ivBody">
+              <div class="iv-row" data-iv><span>3-ton condenser unit</span><span>$1,840.00</span></div>
+              <div class="iv-row" data-iv><span>Copper line set (25 ft)</span><span>$96.50</span></div>
+              <div class="iv-row" data-iv><span>Refrigerant R-410A (4 lb)</span><span>$112.00</span></div>
+              <div class="iv-row" data-iv><span>Misc fittings & solder</span><span>$38.75</span></div>
+              <div class="iv-row" data-iv><span>Total extracted</span><span>$2,087.25</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>This week in plain English</h3><span class="eyebrow">Mon–Sun</span></div>
+          <div class="summary" id="weeklySummary"><span class="ph" style="color:var(--muted)">Press "Generate summary" to read the week…</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CUSTOMER SUCCESS ===== -->
+    <section class="view" id="view-success" hidden>
+      <div class="problem"><div class="pn">32%</div><div class="pt">A 4★+ rating earns <b>32% more revenue</b>. 80% of customers prefer a business that replies to every review — 42% avoid one that never does. One bad review can scare off 30 customers.</div></div>
+      <div class="row cols-2">
+        <div>
+          <div class="card" style="margin-bottom:16px;">
+            <div class="eyebrow">Reputation</div>
+            <div class="rating-hero" style="margin-top:12px;">
+              <div class="rating-num" id="ratingNum">4.6</div>
+              <div>
+                <div class="stars" id="ratingStars">★★★★★</div>
+                <div class="stat-sub" id="ratingCount">128 reviews · +6 this month</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>Auto review request</h3><span class="eyebrow">Fires when a job is marked done</span></div>
+            <div class="sms" id="reviewSms">
+              <div class="sms-b us">Thanks for choosing Apex, Maria! If we earned it, a quick Google review really helps our small team 🙏 [link]</div>
+            </div>
+            <div id="newReviewSlot"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h3>Negative review — handled</h3><span class="eyebrow">AI drafts the reply, you approve</span></div>
+          <div class="review">
+            <div class="rv-top"><div class="rv-ava">JD</div><div><div class="rv-name">James D.</div><div class="stars">★★★<span class="off">★★</span></div></div></div>
+            <div class="rv-text">Tech showed up an hour late and didn't call ahead. Work was fine but the scheduling was frustrating.</div>
+            <div id="replySlot"></div>
+          </div>
+          <p style="font-size:12.5px;color:var(--muted);">The AI never argues — it acknowledges, takes it offline, and shows future customers you respond like a pro.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="ck">✓</span><span id="toastTxt"></span></div>
+
+<script>
+// ============ NAV ============
+const views = {
+  overview:{title:'Overview',sub:'One dashboard. Every channel. One source of truth.',play:null},
+  reception:{title:'Reception',sub:'Answers every call, captures the lead, flags the emergency.',play:{label:'Simulate a call',fn:runCall}},
+  sales:{title:'Sales',sub:'Responds in seconds, qualifies, revives dormant customers.',play:{label:'Start the race',fn:runRace}},
+  operations:{title:'Operations',sub:'Dispatch the closest tech, text the customer automatically.',play:{label:'Auto-assign all',fn:assignAll}},
+  backoffice:{title:'Back Office',sub:'Reads the paperwork, tells you where the money is.',play:{label:'Read the books',fn:runBackoffice}},
+  success:{title:'Customer Success',sub:'Earns reviews, replies on-brand, protects the rating.',play:{label:'Run reputation',fn:runSuccess}}
 };
 
-// ---------- live state ----------
-let S, leadCounter, feedTimer;
-const STAGES = ['New','Qualified','Quoted','Won'];
+const tbLeft=document.getElementById('tbLeft');
+const tbRight=document.getElementById('tbRight');
+const playIcon='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
 
-// incoming fake leads for the auto-feed
-const FEED_POOL = [
-  {nm:'Greg Sullivan', ch:'voice', em:false, prob:'AC blowing warm air, needs a look', addr:'412 Fitzwater St'},
-  {nm:'Web visitor', ch:'chat', em:false, prob:'How soon can someone come for a clogged drain?', addr:'web chat · services'},
-  {nm:'Patricia Obi', ch:'voice', em:true, prob:'No heat and a baby in the house', addr:'77 Snyder Ave'},
-  {nm:'Kevin Tran', ch:'form', em:false, prob:'Quote request: full system replacement', addr:'contact form'},
-  {nm:'Web visitor', ch:'chat', em:false, prob:'Do you service Fishtown? Thermostat issue', addr:'web chat · homepage'},
-  {nm:'Lauren Diaz', ch:'voice', em:false, prob:'Water heater making knocking noises', addr:'1502 Dickinson St'},
-  {nm:'Marcus Webb', ch:'voice', em:true, prob:'Basement flooding from a burst line', addr:'934 Morris St'},
+function setView(name){
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===name));
+  document.querySelectorAll('.view').forEach(v=>v.hidden = v.id!=='view-'+name);
+  const cfg=views[name];
+  tbLeft.innerHTML=`<h2>${cfg.title}</h2><p>${cfg.sub}</p>`;
+  if(name==='overview'){
+    tbRight.innerHTML=`<button class="play-btn" id="pb">${playIcon} Run the journey</button>`;
+    document.getElementById('pb').onclick=runJourney;
+  } else if(cfg.play){
+    tbRight.innerHTML=`<button class="play-btn" id="pb">${playIcon} ${cfg.play.label}</button>`;
+    document.getElementById('pb').onclick=cfg.play.fn;
+  } else tbRight.innerHTML='';
+}
+document.getElementById('nav').addEventListener('click',e=>{
+  const b=e.target.closest('.nav-item'); if(b) setView(b.dataset.view);
+});
+
+// ============ helpers ============
+const $=id=>document.getElementById(id);
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+let toastTimer;
+function toast(msg){const t=$('toast');$('toastTxt').textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2400);}
+function animateCount(el,to,prefix='',suffix='',ms=1100){
+  const start=0,t0=performance.now();
+  function step(t){const p=Math.min(1,(t-t0)/ms);const v=Math.floor(start+(to-start)*(1-Math.pow(1-p,3)));el.textContent=prefix+v.toLocaleString()+suffix;if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+
+// ============ RECEPTION ============
+const callScript=[
+  {s:'caller',t:"Hi, my heat's completely out and it's freezing — I've got a newborn in the house."},
+  {s:'ai',t:"I'm sorry to hear that — let's get someone to you fast. Can I get your name?"},
+  {s:'caller',t:"Marcus Alvarez."},
+  {s:'ai',t:"Thank you, Marcus. What's the service address?"},
+  {s:'caller',t:"412 Belgrade Street, Fishtown."},
+  {s:'ai',t:"Got it. Because you have a newborn and no heat, I'm flagging this as an emergency and dispatching the on-call tech now. You'll get a text when they're en route."}
 ];
-let feedIdx = 0;
+let callRunning=false;
+async function runCall(){
+  if(callRunning)return; callRunning=true;
+  const pb=$('pb'); if(pb)pb.disabled=true;
+  const tr=$('transcript'); tr.innerHTML='';
+  ['fName','fSvc','fAddr','fPri'].forEach(id=>{const e=$(id);e.textContent='—';e.className='v empty';});
+  $('callerName').textContent='Incoming call…';
+  $('recRevenue').textContent='$0';
+  for(const line of callScript){
+    if(line.s==='ai'){const ty=document.createElement('div');ty.className='typing';ty.innerHTML='<span></span><span></span><span></span>';tr.appendChild(ty);tr.scrollTop=tr.scrollHeight;await wait(750);ty.remove();}
+    const b=document.createElement('div');b.className='bubble '+line.s;b.innerHTML=`<div class="spkr">${line.s==='ai'?'AI receptionist':'Caller'}</div>${line.t}`;tr.appendChild(b);tr.scrollTop=tr.scrollHeight;
+    if(line.t.includes('Marcus Alvarez')){$('callerName').textContent='Marcus Alvarez';revealField('fName','Marcus Alvarez');}
+    if(line.t.includes('Belgrade')){revealField('fAddr','412 Belgrade St, Fishtown');revealField('fSvc','No heat / furnace');}
+    if(line.t.includes('emergency')){revealField('fPri','🔴 Emergency');animateCount($('recRevenue'),1050,'$');}
+    await wait(line.s==='ai'?900:700);
+  }
+  toast('Lead captured & logged to the Hub');
+  bumpOverview('lead');
+  if(pb)pb.disabled=false; callRunning=false;
+}
+function revealField(id,val){const e=$(id);e.textContent=val;e.className='v show';}
 
-function deepCopy(o){return JSON.parse(JSON.stringify(o));}
-
-function init(){
-  S = {
-    rec: deepCopy(SEED.rec),
-    pipeline: deepCopy(SEED.pipeline),
-    opsJobs: deepCopy(SEED.opsJobs),
-    crew: deepCopy(SEED.crew),
-    invoices: deepCopy(SEED.invoices),
-    drafts: deepCopy(SEED.drafts),
-    leadsToday: 14, won: 7, reviews: 37, jobId: 100,
-  };
-  leadCounter = 7;
-  feedIdx = 0;
-  renderAll();
-  startFeed();
+// ============ SALES ============
+let raceRunning=false;
+async function runRace(){
+  if(raceRunning)return; raceRunning=true;
+  const pb=$('pb'); if(pb)pb.disabled=true;
+  $('verdictYou').classList.remove('show');$('verdictAI').classList.remove('show');
+  $('fillYou').style.width='0';$('fillAI').style.width='0';
+  // AI finishes fast
+  let aiT=0;const aiTarget=47;const aiTimer=setInterval(()=>{aiT+=3;if(aiT>=aiTarget){aiT=aiTarget;clearInterval(aiTimer);$('timerAI').textContent='0:47';$('fillAI').style.width='100%';$('verdictAI').classList.add('show');}else{$('timerAI').textContent='0:'+String(aiT).padStart(2,'0');$('fillAI').style.width=(aiT/aiTarget*100)+'%';}},55);
+  // You crawl
+  let youSec=0;const youTimer=setInterval(()=>{youSec+=8;const m=Math.floor(youSec/60);$('timerYou').textContent=m+':'+String(youSec%60).padStart(2,'0');$('fillYou').style.width=Math.min(100,youSec/252*100)+'%';if(youSec>=252){clearInterval(youTimer);$('timerYou').textContent='4:12';$('verdictYou').classList.add('show');}},45);
+  await wait(3200);
+  toast('S&H engaged the lead in 47 seconds');
+  if(pb)pb.disabled=false; raceRunning=false;
+}
+const winback="Hi Linda — it's Apex Home Services. It's been about a year since we serviced your AC before last summer. We've got a few maintenance slots open before the heat hits — want me to hold one for you? Returning-customer rate applies.";
+async function drawWinback(){
+  const d=$('winbackDraft'); d.innerHTML='';
+  for(let i=0;i<winback.length;i++){d.textContent+=winback[i];await wait(12);}
+  toast('Win-back drafted — ready to send');
 }
 
-function renderAll(){ renderRec(); renderPipeline(); renderOps(); renderInvoices(); renderDrafts(); }
-
-// ---------- toast ----------
-let toastT;
-function toast(msg){
-  document.getElementById('toastMsg').textContent=msg;
-  const t=document.getElementById('toast'); t.classList.add('show');
-  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2600);
+// ============ OPERATIONS ============
+const jobPos=[{x:120,y:110},{x:250,y:90},{x:300,y:210}];
+const techPos=[{x:150,y:200,n:'Dave'},{x:230,y:140,n:'Sam'}];
+function drawMap(){
+  const jp=$('jobPins');jp.innerHTML='';
+  jobPos.forEach((p,i)=>{jp.innerHTML+=`<g><circle cx="${p.x}" cy="${p.y}" r="7" fill="#14B8A6"/><circle cx="${p.x}" cy="${p.y}" r="7" fill="none" stroke="#14B8A6" stroke-width="2" opacity="0.4"><animate attributeName="r" from="7" to="15" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" from="0.4" to="0" dur="1.8s" repeatCount="indefinite"/></circle></g>`;});
+  const tp=$('techPins');tp.innerHTML='';
+  techPos.forEach(p=>{tp.innerHTML+=`<g><rect x="${p.x-7}" y="${p.y-7}" width="14" height="14" rx="4" fill="#0A2E36"/><text x="${p.x}" y="${p.y+18}" font-size="9" fill="#0A2E36" text-anchor="middle" font-family="DM Mono">${p.n}</text></g>`;});
 }
-function pop(el){ if(!el) return; el.classList.remove('counter-pop'); void el.offsetWidth; el.classList.add('counter-pop'); }
-
-// ---------- RECEPTION ----------
-function initials(name){return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-function renderRec(){
-  const box=document.getElementById('recRows');
-  if(!S.rec.length){ box.innerHTML='<div class="empty">All leads routed — clean queue. New ones arrive automatically.</div>'; }
-  else box.innerHTML=S.rec.map(r=>`
-    <div class="row ${r._fresh?'fresh':''}" data-id="${r.id}">
-      <div class="avatar">${initials(r.nm)}</div>
-      <div style="flex:1;min-width:0">
-        <div class="nm">${r.nm} ${r.em?'<span class="tag em">EMERGENCY</span>':''} <span class="tag ${r.ch}">${r.ch}</span></div>
-        <div class="sub">${r.addr}</div>
-        <div class="prob" style="margin-top:3px">${r.prob}</div>
-      </div>
-      <div class="right">
-        <div class="when">${r.when} ago</div>
-        <button class="btn-sm" onclick="routeLead(${r.id})">Route →</button>
-      </div>
-    </div>`).join('');
-  S.rec.forEach(r=>r._fresh=false);
-  // counters
-  const le=document.getElementById('stLeads'); le.textContent=S.leadsToday; 
-  document.getElementById('stEmerg').textContent=S.rec.filter(r=>r.em).length;
-  const nav=document.getElementById('navCountRec'); if(nav) nav.textContent=S.rec.length;
-}
-
-function routeLead(id){
-  const i=S.rec.findIndex(r=>r.id===id); if(i<0) return;
-  const lead=S.rec[i];
-  // animate out
-  const rowEl=document.querySelector(`#recRows .row[data-id="${id}"]`);
-  if(rowEl){ rowEl.classList.add('leaving'); }
-  // create an Operations job from it
-  S.jobId++;
-  S.opsJobs.push({id:S.jobId, title:`${lead.prob.split(',')[0]} — ${lead.addr.split('·')[0].trim()}`, tech:null, status:'unassigned', sub:'just routed from Reception', pct:0, em:lead.em, _fresh:true});
-  setTimeout(()=>{
-    S.rec.splice(i,1);
-    renderRec(); renderOps();
-    pop(document.getElementById('navCountOps'));
-  },330);
-  toast(`${lead.nm.split(' ')[0]}'s lead routed to Operations`);
-}
-
-// ---------- live feed ----------
-function startFeed(){
-  clearInterval(feedTimer);
-  feedTimer=setInterval(()=>{
-    if(document.hidden) return;
-    if(S.rec.length>=9) return; // don't overflow
-    const base=FEED_POOL[feedIdx % FEED_POOL.length]; feedIdx++;
-    leadCounter++;
-    const lead={...deepCopy(base), id:1000+leadCounter, when:'now', _fresh:true};
-    S.rec.unshift(lead);
-    S.leadsToday++;
-    renderRec();
-    pop(document.getElementById('stLeads'));
-  }, 16000);
-}
-
-// ---------- SALES pipeline ----------
-function renderPipeline(){
-  const box=document.getElementById('pipeline');
-  box.innerHTML=STAGES.map(stage=>{
-    const cards=S.pipeline[stage]||[];
-    return `<div class="pcol"><h4>${stage} <span>${cards.length}</span></h4>
-      ${cards.length?cards.map((c,idx)=>`
-        <div class="pcard ${c._fresh?'fresh':''}" onclick="advanceCard('${stage}',${idx})">
-          <div class="pn">${c.nm}</div><div class="pv">${c.v}</div>
-          ${stage!=='Won'?'<div class="advance-hint">click to advance →</div>':'<div class="advance-hint" style="color:var(--green);opacity:1">✓ closed</div>'}
-        </div>`).join(''):'<div class="empty-col">empty</div>'}
-    </div>`;
-  }).join('');
-  S.pipeline['New'].forEach(c=>c._fresh=false);
-  document.getElementById('stPipe').textContent=STAGES.slice(0,3).reduce((n,s)=>n+S.pipeline[s].length,0);
-  const w=document.getElementById('stWon'); w.textContent=S.won;
-}
-function advanceCard(stage,idx){
-  const si=STAGES.indexOf(stage);
-  if(si>=STAGES.length-1){ toast('Already won 🎉'); return; }
-  const card=S.pipeline[stage].splice(idx,1)[0];
-  const next=STAGES[si+1];
-  card._fresh=true;
-  S.pipeline[next].push(card);
-  if(next==='Won'){ S.won++; toast(`${card.nm} — deal won! 🎉`); }
-  else toast(`${card.nm} → ${next}`);
-  renderPipeline();
-  pop(document.getElementById('stWon'));
-}
-
-// ---------- OPERATIONS ----------
-const STATUS_TAG={ 'working':'teal','en route':'blue','unassigned':'amber','done':'green' };
-function renderOps(){
-  const box=document.getElementById('opsJobs');
-  const active=S.opsJobs.filter(j=>j.status!=='done');
-  if(!active.length){ box.innerHTML='<div class="empty">No active jobs right now.</div>'; }
-  else box.innerHTML=active.map(j=>`
-    <div class="row ${j._fresh?'fresh':''}">
-      <div style="flex:1">
-        <div class="nm">${j.title} ${j.em?'<span class="tag em">emergency</span>':''}</div>
-        <div class="sub">${j.tech?j.tech+' · ':''}${j.sub}</div>
-        ${j.status!=='unassigned'?`<div class="bar2" style="width:120px"><i style="width:${j.pct}%"></i></div>`:''}
-      </div>
-      <div class="right">
-        <span class="tag ${STATUS_TAG[j.status]}">${j.status}</span>
-        ${j.status==='unassigned'?`<button class="btn-sm" style="margin-top:6px;display:block;margin-left:auto" onclick="assignJob(${j.id})">Assign</button>`:''}
-        ${(j.status==='working'||j.status==='en route')?`<button class="btn-sm" style="margin-top:6px;display:block;margin-left:auto" onclick="resolveJob(${j.id})">Resolve</button>`:''}
-      </div>
-    </div>`).join('');
-  S.opsJobs.forEach(j=>j._fresh=false);
-  // crew
-  document.getElementById('opsCrew').innerHTML=S.crew.map(c=>`
-    <div class="row"><div class="avatar">${initials(c.nm)}</div>
-      <div><div class="nm" style="font-size:13px">${c.nm}</div><div class="sub">${c.role}</div></div>
-      <div class="right"><span class="tag ${c.status==='available'?'green':c.status==='en route'?'blue':'amber'}">${c.status}</span></div>
-    </div>`).join('');
-  // stats
-  const done=S.opsJobs.filter(j=>j.status==='done').length;
-  const act=S.opsJobs.filter(j=>j.status!=='done').length;
-  document.getElementById('stJobs').textContent=S.opsJobs.length;
-  document.getElementById('stJobsSub').textContent=`${done} done · ${act} active`;
-  document.getElementById('stAvail').textContent=`${S.crew.filter(c=>c.status==='available').length} available`;
-  const nav=document.getElementById('navCountOps'); if(nav) nav.textContent=act;
-}
+let assigned={1:false,2:false,3:false};
 function assignJob(id){
-  const j=S.opsJobs.find(j=>j.id===id); if(!j) return;
-  const free=S.crew.find(c=>c.status==='available');
-  if(!free){ toast('No techs available right now'); return; }
-  free.status='en route';
-  j.tech=free.nm; j.status='en route'; j.sub='ETA ~14m'; j.pct=20; j._fresh=true;
-  renderOps();
-  toast(`${free.nm} assigned · en route`);
+  if(assigned[id])return; assigned[id]=true;
+  const card=document.querySelector(`.jobcard[data-job="${id}"]`);
+  card.classList.add('assigned');
+  const btn=card.querySelector('.minibtn');btn.textContent='Dispatched';btn.disabled=true;
+  // draw a connecting line on the map
+  const j=jobPos[id-1];const t=techPos[(id-1)%techPos.length];
+  $('jobPins').insertAdjacentHTML('beforeend',`<line x1="${t.x}" y1="${t.y}" x2="${j.x}" y2="${j.y}" stroke="#0A2E36" stroke-width="1.5" stroke-dasharray="4 3" opacity="0"><animate attributeName="opacity" from="0" to="0.5" dur="0.4s" fill="freeze"/></line>`);
+  const left=Object.values(assigned).filter(v=>!v).length;
+  $('opsCount').textContent=left?left+' waiting':'all dispatched';
+  toast('Tech dispatched · "on the way" text sent');
+  bumpOverview('job');
 }
-function resolveJob(id){
-  const j=S.opsJobs.find(j=>j.id===id); if(!j) return;
-  // free the tech
-  const c=S.crew.find(c=>c.nm===j.tech); if(c) c.status='available';
-  j.status='done';
-  renderOps();
-  toast(`Job resolved — ${j.tech||'tech'} now available`);
-}
-
-// ---------- BACK OFFICE ----------
-function renderInvoices(){
-  document.getElementById('invoiceBody').innerHTML=S.invoices.map(v=>`
-    <tr><td>${v.vendor}</td><td>${v.inv}</td><td>${v.date}</td><td class="amt">${v.amt}</td>
-    <td><span class="tag ${v.status==='posted'?'green':'amber'}">${v.status}</span></td></tr>`).join('');
+async function assignAll(){
+  const pb=$('pb'); if(pb)pb.disabled=true;
+  for(const id of [1,2,3]){if(!assigned[id]){assignJob(id);await wait(650);}}
+  if(pb)pb.disabled=false;
 }
 
-// ---------- CUSTOMER SUCCESS ----------
-function renderDrafts(){
-  const box=document.getElementById('replyDrafts');
-  if(!S.drafts.length){ box.innerHTML='<div class="empty">All replies handled. New reviews appear here for approval.</div>'; }
-  else box.innerHTML=S.drafts.map(d=>`
-    <div class="row" style="display:block">
-      <div style="display:flex;align-items:center;gap:12px"><div class="avatar">★</div>
-        <div><div class="nm">${d.nm} · ${d.stars}★</div><div class="sub">${d.review}</div></div></div>
-      <div class="reply-box"><b>DRAFTED REPLY</b>${d.reply}</div>
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <button class="btn-sm" onclick="approveDraft(${d.id})">Approve &amp; post</button>
-        <button class="btn-sm" onclick="toast('Sent back for edit')">Edit</button>
-      </div>
-    </div>`).join('');
-  const r=document.getElementById('stReviews'); r.textContent=S.reviews;
-}
-function approveDraft(id){
-  const i=S.drafts.findIndex(d=>d.id===id); if(i<0) return;
-  const d=S.drafts[i];
-  S.drafts.splice(i,1);
-  S.reviews++;
-  renderDrafts();
-  pop(document.getElementById('stReviews'));
-  toast(`Reply to ${d.nm} posted to Google`);
+// ============ BACK OFFICE ============
+const summaryHTML=`You booked <b>23 jobs</b> this week, up 4 from last week. The AI receptionist recovered <span class="hl">$4,200</span> from after-hours calls that would've gone to voicemail. Average response time was <b>52 seconds</b>. <br><br>Heads up: <span class="hlr">3 invoices</span> are past 30 days and need follow-up, and <b>two maintenance customers</b> are due for their annual visit — Sales already drafted the outreach.`;
+let boRunning=false;
+async function runBackoffice(){
+  if(boRunning)return; boRunning=true;
+  const pb=$('pb'); if(pb)pb.disabled=true;
+  $('ivDate').textContent='Apr 14, 2026';
+  document.querySelectorAll('[data-iv]').forEach(r=>r.classList.remove('show'));
+  const rows=[...document.querySelectorAll('[data-iv]')];
+  for(const r of rows){await wait(420);r.classList.add('show');}
+  await wait(400);
+  const s=$('weeklySummary');s.innerHTML='';
+  await wait(200); s.innerHTML=summaryHTML;
+  toast('Books read — summary ready');
+  if(pb)pb.disabled=false; boRunning=false;
 }
 
-// ---------- reset ----------
+// ============ CUSTOMER SUCCESS ============
+let successRunning=false;
+async function runSuccess(){
+  if(successRunning)return; successRunning=true;
+  const pb=$('pb'); if(pb)pb.disabled=true;
+  // new 5-star rolls in
+  const slot=$('newReviewSlot');slot.innerHTML='';
+  await wait(600);
+  slot.innerHTML=`<div class="review" style="margin-top:12px;animation:rise .5s;"><div class="rv-top"><div class="rv-ava">MT</div><div><div class="rv-name">Maria T.</div><div class="stars">★★★★★</div></div></div><div class="rv-text">Came out same day, fixed our AC fast, super professional. Highly recommend!</div></div>`;
+  $('ratingNum').textContent='4.7';
+  $('ratingCount').textContent='129 reviews · +7 this month';
+  $('ovRating').textContent='4.7★';
+  toast('New 5★ review — rating climbed to 4.7');
+  await wait(800);
+  // negative review reply drafts in
+  const rs=$('replySlot');
+  rs.innerHTML=`<div class="reply"><div class="rl-h">AI-drafted reply · awaiting your approval</div><span id="replyText"></span></div>`;
+  const reply="Hi James — thank you for the honest feedback, and I'm sorry we kept you waiting without a heads-up. That's not our standard. I'd like to make it right — I'll reach out directly today. We appreciate you giving us the chance.";
+  const rt=$('replyText');
+  for(let i=0;i<reply.length;i++){rt.textContent+=reply[i];await wait(10);}
+  await wait(300);
+  rs.insertAdjacentHTML('beforeend',`<button class="minibtn" style="margin-top:10px;" onclick="toast('Reply posted publicly')">Approve &amp; post</button>`);
+  toast('De-escalating reply drafted');
+  if(pb)pb.disabled=false; successRunning=false;
+}
+
+// ============ OVERVIEW journey + metrics ============
+let ovState={revenue:8400,leads:11,jobs:9};
+function refreshOverview(){
+  $('ovRevenue').textContent='$'+ovState.revenue.toLocaleString();
+  $('ovCaptured').textContent=ovState.leads;
+  $('ovJobs').textContent=ovState.jobs;
+}
+function bumpOverview(kind){
+  if(kind==='lead'){ovState.leads++;ovState.revenue+=1050;}
+  if(kind==='job'){ovState.jobs++;}
+  refreshOverview();
+}
+function addFeed(mod,html,color){
+  const f=$('feed');
+  const item=document.createElement('div');item.className='feed-item';
+  item.innerHTML=`<div class="feed-dot" style="background:${color}"></div><div class="ft"><span class="fmod">${mod}</span><br>${html}</div><span class="fwhen">just now</span>`;
+  f.insertBefore(item,f.firstChild);
+}
+async function runJourney(){
+  const pb=$('pb'); if(pb)pb.disabled=true;
+  const steps=[['j1','ja1'],['j2','ja2'],['j3','ja3'],['j4','ja4'],['j5',null]];
+  const feedLines=[
+    ['Reception','Call answered — <b>Marcus A., no-heat emergency</b>','var(--accent)'],
+    ['Reception','Lead captured & qualified — <b>flagged emergency</b>','var(--accent)'],
+    ['Operations','<b>Dave R.</b> auto-dispatched (closest, 2.1 mi)','var(--ink)'],
+    ['Operations','Job completed — <b>furnace back online</b>','var(--green)'],
+    ['Customer Success','Review request sent → <b>new 5★ from Marcus</b>','var(--gold)']
+  ];
+  for(let i=0;i<steps.length;i++){
+    $(steps[i][0]).classList.add('lit');
+    if(steps[i][1])$(steps[i][1]).classList.add('lit');
+    addFeed(...feedLines[i]);
+    if(i===1)bumpOverview('lead');
+    if(i===3)bumpOverview('job');
+    if(i===4){$('ovRating').textContent='4.7★';}
+    await wait(750);
+  }
+  toast('One customer · five modules · one source of truth');
+  if(pb)pb.disabled=false;
+}
+
+// ============ RESET ============
 function resetAll(){
-  init();
+  ovState={revenue:8400,leads:11,jobs:9};refreshOverview();
+  $('ovRating').textContent='4.6★';
+  // reset journey
+  ['j1','j2','j3','j4','j5'].forEach(id=>$(id).classList.remove('lit'));
+  ['ja1','ja2','ja3','ja4'].forEach(id=>$(id).classList.remove('lit'));
+  // feed back to seed
+  $('feed').innerHTML=`<div class="feed-item"><div class="feed-dot" style="background:var(--accent)"></div><div class="ft"><span class="fmod">Reception</span><br>After-hours call captured — <b>burst pipe, emergency</b></div><span class="fwhen">2m ago</span></div><div class="feed-item"><div class="feed-dot" style="background:var(--gold)"></div><div class="ft"><span class="fmod">Customer Success</span><br>New <b>5★ review</b> from Maria T.</div><span class="fwhen">18m ago</span></div><div class="feed-item"><div class="feed-dot" style="background:var(--green)"></div><div class="ft"><span class="fmod">Operations</span><br>Job completed — <b>Dave R. dispatched & resolved</b></div><span class="fwhen">41m ago</span></div>`;
+  // reception
+  $('transcript').innerHTML='';$('callerName').textContent='Incoming call…';$('recRevenue').textContent='$0';
+  ['fName','fSvc','fAddr','fPri'].forEach(id=>{const e=$(id);e.textContent='—';e.className='v empty';});
+  // sales
+  $('winbackDraft').innerHTML='<span class="ph">Press "Draft win-back" to generate…</span>';
+  $('timerYou').textContent='0:00';$('timerAI').textContent='0:00';$('fillYou').style.width='0';$('fillAI').style.width='0';
+  $('verdictYou').classList.remove('show');$('verdictAI').classList.remove('show');
+  // ops
+  assigned={1:false,2:false,3:false};
+  document.querySelectorAll('.jobcard').forEach(c=>{c.classList.remove('assigned');const b=c.querySelector('.minibtn');b.textContent='Auto-assign';b.disabled=false;});
+  $('opsCount').textContent='3 waiting';drawMap();
+  // back office
+  document.querySelectorAll('[data-iv]').forEach(r=>r.classList.remove('show'));$('ivDate').textContent='—';
+  $('weeklySummary').innerHTML='<span class="ph" style="color:var(--muted)">Press "Generate summary" to read the week…</span>';
+  // success
+  $('newReviewSlot').innerHTML='';$('replySlot').innerHTML='';
+  $('ratingNum').textContent='4.6';$('ratingCount').textContent='128 reviews · +6 this month';
   toast('Demo reset — clean slate');
 }
 
-// ---------- module switching ----------
-document.querySelectorAll('.navitem').forEach(item=>{
-  item.addEventListener('click',()=>{
-    document.querySelectorAll('.navitem').forEach(n=>n.classList.remove('active'));
-    item.classList.add('active');
-    const mod=item.dataset.mod;
-    document.querySelectorAll('.module-view').forEach(v=>v.classList.remove('active'));
-    document.getElementById(mod).classList.add('active');
-    document.querySelector('.main').scrollTop=0;
-  });
+// add win-back / summary play buttons that the topbar swap needs
+views.sales.play.fn=function(){runRace();};
+// override: sales needs two actions — keep race as main, add winback via a secondary control in-card
+// We'll attach a secondary button programmatically:
+window.addEventListener('DOMContentLoaded',()=>{
+  drawMap();refreshOverview();
+  // secondary winback button under the draft
+  const sd=$('winbackDraft');
+  const wb=document.createElement('button');wb.className='minibtn';wb.style.marginTop='12px';wb.textContent='Draft win-back';wb.onclick=drawWinback;
+  sd.parentElement.appendChild(wb);
+  setView('overview');
 });
-
-// ---------- boot ----------
-init();
 </script>
 </body>
 </html>
