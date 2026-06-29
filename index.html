@@ -57,19 +57,22 @@ nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.85);backdrop-f
 .btn-primary:hover{background:#0d3b45}
 .btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}
 .btn-ghost:hover{border-color:var(--accent-soft);background:var(--surface)}
+.btn-lg{font-size:17px;padding:17px 34px;border-radius:12px;box-shadow:0 10px 30px -12px rgba(10,46,54,.45)}
+.btn-lg:hover{transform:translateY(-1px);box-shadow:0 14px 34px -12px rgba(10,46,54,.5)}
 
 /* convergence signature */
 .converge{padding:54px 0 80px}
 .converge-frame{background:linear-gradient(180deg,var(--surface) 0%,var(--surface2) 100%);border:1px solid var(--line);border-radius:22px;padding:44px 28px;position:relative;overflow:hidden}
 .converge-cap{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
 .converge-title{text-align:center;font-family:var(--disp);font-weight:600;font-size:22px;color:var(--ground);margin-bottom:36px;letter-spacing:-.01em}
-svg .chan-label{font-family:var(--mono);font-size:11px;fill:var(--ink2)}
+svg .chan-label{font-family:var(--mono);font-size:12px;fill:var(--ink2);font-weight:500}
+svg .node-star{font-family:var(--disp);font-size:22px;fill:var(--teal);font-weight:600}
 svg .hub-label{font-family:var(--disp);font-size:15px;font-weight:600;fill:#fff}
 svg .hub-sub{font-family:var(--mono);font-size:8.5px;fill:var(--accent-soft);letter-spacing:.1em}
 .flow{stroke:var(--accent);stroke-width:1.6;fill:none;opacity:.34;stroke-dasharray:5 5;animation:dash 22s linear infinite}
 @keyframes dash{to{stroke-dashoffset:-200}}
 .node{fill:#fff;stroke:var(--line);stroke-width:1.4}
-.node.live{stroke:var(--accent);stroke-width:2;cursor:pointer}
+.node.live{fill:#fff;stroke:var(--accent);stroke-width:2;cursor:pointer}
 .node.live:hover{fill:var(--surface)}
 .node-ic{fill:var(--ink2)}
 .node.live .node-ic{fill:var(--teal)}
@@ -84,7 +87,7 @@ svg .hub-sub{font-family:var(--mono);font-size:8.5px;fill:var(--accent-soft);let
 .sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
 .sec-title{font-family:var(--disp);font-weight:600;font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;color:var(--ground);max-width:20ch}
 .modules{border-top:1px solid var(--line)}
-.module{display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:baseline;padding:26px 8px;border-bottom:1px solid var(--line);transition:.15s}
+.module{text-decoration:none;color:inherit;display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:baseline;padding:26px 8px;border-bottom:1px solid var(--line);transition:.15s}
 .module:hover{background:var(--surface);padding-left:18px;padding-right:18px}
 .module .code{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500}
 .module .m-name{font-family:var(--disp);font-weight:600;font-size:20px;color:var(--ground)}
@@ -219,8 +222,7 @@ footer .mono{font-family:var(--mono)}
     <h1>Clarity at the <em>core</em> of your business.</h1>
     <p class="lead">We build practical AI that removes the busywork — answering calls, chasing reviews, following up — and ties it all into one system you actually control.</p>
     <div class="hero-cta">
-      <button class="btn btn-primary" onclick="shOpen()">See Reception live →</button>
-      <a href="hub.html" class="btn btn-ghost">Explore the modules →</a>
+      <a href="hub.html" class="btn btn-primary btn-lg">Explore the modules →</a>
     </div>
   </div>
 </header>
@@ -229,46 +231,38 @@ footer .mono{font-family:var(--mono)}
   <div class="wrap">
     <div class="converge-frame">
       <div class="converge-cap">The thesis</div>
-      <div class="converge-title">Every channel, one source of truth.</div>
-      <svg viewBox="0 0 720 300" width="100%" role="img" aria-label="Five channels converging into the Hub">
+      <div class="converge-title">Every module, one source of truth.</div>
+      <svg viewBox="0 0 720 340" width="100%" role="img" aria-label="Three modules converging into the Hub">
         <!-- flows -->
-        <path class="flow" d="M150,40 C320,40 360,150 470,150"/>
-        <path class="flow" d="M150,95 C320,95 380,150 470,150"/>
-        <path class="flow" d="M150,150 L470,150"/>
-        <path class="flow" d="M150,205 C320,205 380,150 470,150"/>
-        <path class="flow" d="M150,260 C320,260 360,150 470,150"/>
+        <path class="flow" d="M170,75 C330,75 370,170 458,170"/>
+        <path class="flow" d="M170,170 L458,170"/>
+        <path class="flow" d="M170,265 C330,265 370,170 458,170"/>
 
-        <!-- channel nodes -->
+        <!-- module nodes -->
         <g>
-          <circle class="node live" cx="120" cy="40" r="26" onclick="shOpen()"/>
-          <text class="chan-label" x="20" y="44">Calls</text>
-          <text class="live-tag" x="92" y="14">● LIVE</text>
-          <path class="node-ic" d="M112,32 a3,3 0 0 1 3,-3 h2 l2,5 -2,2 a12,12 0 0 0 5,5 l2,-2 5,2 v2 a3,3 0 0 1 -3,3 a18,18 0 0 1 -16,-16 z" transform="translate(0,1)"/>
+          <circle class="node live" cx="140" cy="75" r="28" onclick="shOpen()"/>
+          <path class="node-ic" d="M132,67 a3,3 0 0 1 3,-3 h2 l2,5 -2,2 a12,12 0 0 0 5,5 l2,-2 5,2 v2 a3,3 0 0 1 -3,3 a18,18 0 0 1 -16,-16 z"/>
+          <text class="chan-label" x="140" y="123" text-anchor="middle">Reception</text>
+          <text class="live-tag" x="140" y="32" text-anchor="middle">● LIVE</text>
         </g>
         <g>
-          <circle class="node" cx="120" cy="95" r="26"/>
-          <text class="chan-label" x="22" y="99">Web chat</text>
+          <circle class="node live" cx="140" cy="170" r="28"/>
+          <text class="node-star" x="140" y="177" text-anchor="middle">★</text>
+          <text class="chan-label" x="140" y="218" text-anchor="middle">Reputation</text>
         </g>
         <g>
-          <circle class="node" cx="120" cy="150" r="26"/>
-          <text class="chan-label" x="30" y="154">Forms</text>
-        </g>
-        <g>
-          <circle class="node" cx="120" cy="205" r="26"/>
-          <text class="chan-label" x="24" y="209">Reviews</text>
-        </g>
-        <g>
-          <circle class="node" cx="120" cy="260" r="26"/>
-          <text class="chan-label" x="14" y="264">Follow-ups</text>
+          <circle class="node live" cx="140" cy="265" r="28"/>
+          <text class="node-star" x="140" y="272" text-anchor="middle">↻</text>
+          <text class="chan-label" x="140" y="313" text-anchor="middle">Reactivation</text>
         </g>
 
         <!-- hub -->
-        <circle cx="520" cy="150" r="62" fill="#0A2E36"/>
-        <circle cx="520" cy="150" r="62" fill="none" stroke="#14B8A6" stroke-width="1.5" opacity=".5"/>
-        <text class="hub-label" x="520" y="148" text-anchor="middle">The Hub</text>
-        <text class="hub-sub" x="520" y="164" text-anchor="middle">ONE DASHBOARD</text>
+        <circle cx="520" cy="170" r="62" fill="#0A2E36"/>
+        <circle cx="520" cy="170" r="62" fill="none" stroke="#14B8A6" stroke-width="1.5" opacity=".5"/>
+        <text class="hub-label" x="520" y="168" text-anchor="middle">The Hub</text>
+        <text class="hub-sub" x="520" y="185" text-anchor="middle">ONE DASHBOARD</text>
       </svg>
-      <div class="converge-hint">The <b>Calls</b> node is live — tap it (or the chat bubble) to talk to our Reception agent right now.</div>
+      <div class="converge-hint">All three modules are <b>live</b> — tap Reception (or the chat bubble) to talk to our AI agent right now.</div>
     </div>
   </div>
 </section>
@@ -276,35 +270,25 @@ footer .mono{font-family:var(--mono)}
 <section class="section" id="modules">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-eyebrow">Five modules</div>
-      <div class="sec-title">Pick what you need. They share one brain.</div>
+      <div class="sec-eyebrow">The modules</div>
+      <div class="sec-title">Three live tools. One shared brain.</div>
     </div>
     <div class="modules">
-      <div class="module">
+      <a class="module" href="https://dispatch.rileyspitznas.com" target="_blank" rel="noopener">
         <span class="code">01</span>
-        <div><div class="m-name">Reception</div><div class="m-desc">Answers every call, web chat, and form. Captures the lead, flags emergencies, and routes or books — 24/7, never a missed call.</div></div>
-        <div class="m-status live">Live demo</div>
-      </div>
-      <div class="module">
+        <div><div class="m-name">Reception</div><div class="m-desc">Answers every call, web chat, and form. Captures the lead, flags emergencies, and dispatches the nearest tech — 24/7, never a missed call.</div></div>
+        <div class="m-status live">Live</div>
+      </a>
+      <a class="module" href="https://reputation-engine-nu.vercel.app" target="_blank" rel="noopener">
         <span class="code">02</span>
-        <div><div class="m-name">Sales</div><div class="m-desc">Responds to new leads in seconds, qualifies them, and revives dormant customers with personalized win-back outreach.</div></div>
-        <div class="m-status">In build</div>
-      </div>
-      <div class="module">
+        <div><div class="m-name">Reputation</div><div class="m-desc">Pulls in every review, drafts an on-brand reply with AI in seconds, and posts it — turning your rating into something that runs itself.</div></div>
+        <div class="m-status live">Live</div>
+      </a>
+      <a class="module" href="https://reactivation-engine-kappa.vercel.app" target="_blank" rel="noopener">
         <span class="code">03</span>
-        <div><div class="m-name">Operations</div><div class="m-desc">Dispatches the right person to the right job, tracks status, and keeps the schedule moving without the phone tag.</div></div>
-        <div class="m-status">In build</div>
-      </div>
-      <div class="module">
-        <span class="code">04</span>
-        <div><div class="m-name">Back Office</div><div class="m-desc">Pulls data off invoices and forms, reconciles the books, and turns your numbers into a plain-language weekly read.</div></div>
-        <div class="m-status">In build</div>
-      </div>
-      <div class="module">
-        <span class="code">05</span>
-        <div><div class="m-name">Customer Success</div><div class="m-desc">Asks happy customers for reviews at the right moment, drafts on-brand replies, and keeps you top of mind after the job.</div></div>
-        <div class="m-status">In build</div>
-      </div>
+        <div><div class="m-name">Reactivation</div><div class="m-desc">Flags past customers who are due for service again and drafts personalized win-back outreach — ready to approve and send.</div></div>
+        <div class="m-status live">Live</div>
+      </a>
     </div>
   </div>
 </section>
@@ -314,7 +298,7 @@ footer .mono{font-family:var(--mono)}
     <div class="hub-band">
       <div class="sec-eyebrow">The Hub</div>
       <h2>One dashboard. One source of truth.</h2>
-      <p>Every module writes to the same place, so a call, a web chat, and a review request all land in one view. No more stitching together five tools that don't talk to each other.</p>
+      <p>Every module writes to the same place, so a missed call, a new review, and a lapsed customer all land in one view. No more stitching together separate tools that don't talk to each other.</p>
     </div>
   </div>
 </section>
@@ -406,7 +390,7 @@ function shOpen(){ const c=document.getElementById('sh-chat'); if(!c.classList.c
 
 function shGreet(){
   if(document.getElementById('shMsgs').children.length===0){
-    shBot("Hi — I'm the Spitznas & Hoff assistant. I can explain how we work, what the five modules do, or pricing. What brings you in?");
+    shBot("Hi — I'm the Spitznas & Hoff assistant. I can explain how we work, what the modules do, or pricing. What brings you in?");
   }
 }
 function shBot(t){ const d=document.createElement('div');d.className='sh-msg bot';d.textContent=t;document.getElementById('shMsgs').appendChild(d);shScroll(); }
@@ -451,7 +435,7 @@ function shOffline(t){
   if(q.includes('reception')||q.includes('call')||q.includes('phone'))
     return "Reception answers every call, web chat, and form — captures the lead, flags emergencies, and routes or books, 24/7. It's the module you're talking to right now. The idea isn't to replace your front desk; it's to make sure nothing slips through when no one can pick up.";
   if(q.includes('module'))
-    return "Five modules: Reception (calls/chat/forms), Sales (lead response + win-back), Operations (dispatch + scheduling), Back Office (invoices + bookkeeping + reporting), and Customer Success (reviews + staying top of mind). They all feed one dashboard — the Hub.";
+    return "Three live modules: Reception (answers calls, captures and dispatches leads), Reputation (drafts and posts review replies), and Reactivation (wins back lapsed customers). They all feed one dashboard — the Hub.";
   if(q.includes('hub'))
     return "The Hub is the single dashboard every module writes to — so a call, a web chat, and a review request all land in one place instead of five disconnected tools.";
   return "Happy to help with that. S&H builds practical AI for small businesses — Reception, Sales, Operations, Back Office, and Customer Success, unified by one dashboard. Want me to walk through a specific module, or set up a consult?";
