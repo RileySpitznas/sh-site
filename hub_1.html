@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hub — Spitznas & Hoff</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FFFFFF;--bg2:#F3FAF9;--bg3:#EAF6F5;--line:#D6E6E4;
+  --ink:#0A2E36;--ink2:#5B7377;--ink3:#9AB0AE;
+  --teal:#0E7C7B;--teal2:#14B8A6;
+  --amber:#9A6B15;--amberbg:#FAF3E5;
+  --green:#2E7D5B;--greenbg:#ECF6F1;
+  --blue:#3D6B9E;--bluebg:#EEF4FA;
+  --gold:#EAB308;
+  --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;--disp:'Space Grotesk',sans-serif;
+}
+body{
+  background-color:var(--bg2);
+  background-image:
+    linear-gradient(rgba(214,230,228,.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214,230,228,.5) 1px, transparent 1px),
+    radial-gradient(circle at 50% -8%, rgba(20,184,166,.10), transparent 50%);
+  background-size:44px 44px, 44px 44px, 100% 540px;
+  background-position:center top;
+  background-attachment:fixed;
+  color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;min-height:100vh
+}
+
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid var(--line);background:var(--bg)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand i{width:27px;height:27px;background:var(--teal);border-radius:7px;display:grid;place-items:center;color:#fff;font-family:var(--disp);font-weight:700;font-size:12px}
+.brand b{font-family:var(--disp);font-weight:600;font-size:15px}
+.brand small{display:block;font-family:var(--mono);font-size:9.5px;color:var(--ink3);letter-spacing:.5px}
+.acct{font-family:var(--mono);font-size:11.5px;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.acct .dot{width:7px;height:7px;border-radius:50%;background:var(--teal2)}
+
+.strip{display:flex;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:0 28px}
+.stat{padding:13px 22px 13px 0;margin-right:22px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none;margin-right:0}
+.stat .v{font-family:var(--disp);font-size:18px;font-weight:600;line-height:1}
+.stat .v.green{color:var(--green)}
+.stat .l{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink3);margin-top:4px}
+
+.wrap{max-width:1040px;margin:0 auto;padding:24px 28px 50px}
+.hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
+.hd h1{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-.3px}
+.hd .sub{font-family:var(--mono);font-size:11px;color:var(--ink2)}
+
+.modules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.mod{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:18px 18px 0;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,border-color .15s;overflow:hidden}
+.mod:hover{transform:translateY(-2px);box-shadow:0 12px 30px -14px rgba(10,46,54,.22);border-color:var(--teal2)}
+.mod-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.mod .ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.mod.reception .ic{background:var(--bluebg);color:var(--blue)}
+.mod.reputation .ic{background:var(--greenbg);color:var(--green)}
+.mod .titles{flex:1;min-width:0}
+.mod h2{font-family:var(--disp);font-size:16px;font-weight:600;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.mod .code{font-family:var(--mono);font-size:10px;color:var(--ink3);font-weight:400}
+.mod .leak{font-family:var(--mono);font-size:10.5px;color:var(--ink2);margin-top:2px}
+.mod .pulse{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 0 0 rgba(46,125,91,.4);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.4)}70%{box-shadow:0 0 0 6px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
+
+.mod .metrics{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -18px}
+.mod .metric{flex:1;padding:11px 14px;border-right:1px solid var(--line)}
+.mod .metric:last-child{border-right:none}
+.mod .metric .mv{font-family:var(--disp);font-size:16px;font-weight:600;line-height:1}
+.mod .metric .mv.green{color:var(--green)}
+.mod .metric .ml{font-family:var(--mono);font-size:8.5px;text-transform:uppercase;letter-spacing:.3px;color:var(--ink3);margin-top:4px}
+
+.mod .open{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.mod .open .label{font-family:var(--font);font-size:13px;font-weight:600;color:var(--teal)}
+.mod .open .arrow{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;transition:transform .2s}
+.mod:hover .open .arrow{transform:translateX(3px)}
+
+.foot{text-align:center;padding:24px;font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.5px}
+
+@media(min-width:1400px){.wrap{max-width:1180px}}
+@media(max-width:720px){
+  .modules{grid-template-columns:1fr}
+  .top{padding:13px 18px}
+  .acct{font-size:10.5px}
+  .strip{padding:0 18px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .stat{padding:11px 16px 11px 0;margin-right:16px}
+  .stat .v{font-size:16px}
+  .wrap{padding:20px 18px 40px}
+}
+@media(max-width:420px){
+  .acct{display:none}
+  .stat .v{font-size:15px}
+  .mod .metric{padding:10px 10px}
+  .mod .metric .mv{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="brand" href="https://spitznasandhoff.com" style="text-decoration:none;color:inherit"><i>S&amp;H</i><div><b>The Hub</b><small>SPITZNAS &amp; HOFF</small></div></a>
+  <div class="acct"><span class="dot"></span>Apex Home Services · Philadelphia</div>
+</div>
+
+<div class="strip">
+  <div class="stat"><div class="v green">$8,400</div><div class="l">Recovered this mo.</div></div>
+  <div class="stat"><div class="v">47</div><div class="l">Leads captured</div></div>
+  <div class="stat"><div class="v">31</div><div class="l">Jobs dispatched</div></div>
+  <div class="stat"><div class="v" style="color:#B8890B">4.7★</div><div class="l">Avg rating</div></div>
+  <div class="stat"><div class="v">52s</div><div class="l">Avg response</div></div>
+</div>
+
+<div class="wrap">
+  <div class="hd">
+    <h1>Modules</h1>
+    <span class="sub">2 connected · 1 source of truth</span>
+  </div>
+
+  <div class="modules">
+
+    <a class="mod reception" href="https://dispatch.rileyspitznas.com" target="_blank" rel="noopener">
+      <div class="mod-top">
+        <div class="ic">📞</div>
+        <div class="titles">
+          <h2>Reception <span class="code">/ 01</span> <span class="pulse"></span></h2>
+          <div class="leak">Speed-to-Lead · answers, captures, dispatches</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="mv">47</div><div class="ml">Leads</div></div>
+        <div class="metric"><div class="mv">31</div><div class="ml">Dispatched</div></div>
+        <div class="metric"><div class="mv green">52s</div><div class="ml">Response</div></div>
+      </div>
+      <div class="open"><span class="label">Open DispatchIQ</span><span class="arrow">→</span></div>
+    </a>
+
+    <a class="mod reputation" href="https://reputation-engine-nu.vercel.app" target="_blank" rel="noopener">
+      <div class="mod-top">
+        <div class="ic">★</div>
+        <div class="titles">
+          <h2>Reputation <span class="code">/ 04</span> <span class="pulse"></span></h2>
+          <div class="leak">Reviews · on-brand replies, posts to Google</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="mv" style="color:#B8890B">4.7★</div><div class="ml">Rating</div></div>
+        <div class="metric"><div class="mv">129</div><div class="ml">Reviews</div></div>
+        <div class="metric"><div class="mv green">100%</div><div class="ml">Replied</div></div>
+      </div>
+      <div class="open"><span class="label">Open Reputation Engine</span><span class="arrow">→</span></div>
+    </a>
+
+  </div>
+</div>
+
+<div class="foot">THE HUB · SPITZNAS &amp; HOFF</div>
+
+</body>
+</html>

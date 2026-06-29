@@ -16,7 +16,20 @@
   --disp:'Space Grotesk',sans-serif;--body:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
 }
 html{scroll-behavior:smooth}
-body{background:var(--white);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{
+  background-color:var(--white);
+  background-image:
+    linear-gradient(rgba(212,231,228,.45) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,231,228,.45) 1px, transparent 1px),
+    radial-gradient(circle at 50% -10%, rgba(159,227,216,.18), transparent 55%);
+  background-size:46px 46px, 46px 46px, 100% 720px;
+  background-position:center top;
+  background-attachment:fixed, fixed, fixed;
+  color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased
+}
+/* soft fade so the grid is strongest at top, calmer further down */
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg, transparent 0%, rgba(255,255,255,.55) 60%, rgba(255,255,255,.85) 100%)}
 .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
 a{color:inherit;text-decoration:none}
 
@@ -143,6 +156,46 @@ footer .mono{font-family:var(--mono)}
 .sh-in button{background:var(--ground);border:none;color:#fff;border-radius:9px;padding:0 15px;cursor:pointer;font-family:var(--body);font-weight:600;font-size:13px}
 .sh-in button:disabled{opacity:.4}
 .sh-foot{text-align:center;font-family:var(--mono);font-size:9.5px;color:var(--ink3);padding:7px;background:#fff}
+
+/* ===== responsive polish (phone -> wide monitor) ===== */
+/* wide monitors: widen container slightly, keep centered */
+@media(min-width:1400px){
+  .wrap,.nav-in{max-width:1180px}
+}
+/* tablet */
+@media(max-width:900px){
+  .hero{padding:60px 0 24px}
+  .section{padding:56px 0}
+  .about{padding:56px 0}
+  .converge{padding:40px 0 60px}
+  .hub-band{padding:42px 28px}
+}
+/* phone */
+@media(max-width:560px){
+  .wrap{padding:0 18px}
+  .nav-in{padding:14px 18px}
+  .hero{padding:44px 0 18px}
+  .hero h1{font-size:clamp(30px,9vw,40px)}
+  .hero p.lead{font-size:15.5px}
+  .hero-cta{flex-direction:column;align-items:stretch;gap:10px}
+  .hero-cta .btn{width:100%;text-align:center}
+  .converge-frame{padding:26px 16px;border-radius:18px}
+  .converge-title{font-size:18px;margin-bottom:24px}
+  .section{padding:44px 0}
+  .about{padding:44px 0}
+  .hub-band{padding:34px 20px;border-radius:18px}
+  .module{padding:20px 6px}
+  .module:hover{padding-left:10px;padding-right:10px}
+  .member{padding:24px 20px}
+  .foot-cta{padding:56px 0}
+  #sh-chat{bottom:80px;right:12px;left:12px;width:auto;max-width:none}
+  #sh-bubble{bottom:18px;right:18px}
+}
+/* very small phones */
+@media(max-width:380px){
+  .hero h1{font-size:28px}
+  .logo{font-size:15px}
+}
 </style>
 </head>
 <body>
