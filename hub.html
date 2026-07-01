@@ -49,7 +49,7 @@ body{
 .hd h1{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-.3px}
 .hd .sub{font-family:var(--mono);font-size:11px;color:var(--ink2)}
 
-.modules{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.modules{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 
 .mod{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:18px 18px 0;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,border-color .15s;overflow:hidden}
 .mod:hover{transform:translateY(-2px);box-shadow:0 12px 30px -14px rgba(10,46,54,.22);border-color:var(--teal2)}
@@ -58,6 +58,7 @@ body{
 .mod.reception .ic{background:var(--bluebg);color:var(--blue)}
 .mod.reputation .ic{background:var(--greenbg);color:var(--green)}
 .mod.reactivation .ic{background:var(--amberbg);color:var(--amber)}
+.mod.quote .ic{background:var(--bg3);color:var(--teal)}
 .mod .titles{flex:1;min-width:0}
 .mod h2{font-family:var(--disp);font-size:16px;font-weight:600;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
 .mod .code{font-family:var(--mono);font-size:10px;color:var(--ink3);font-weight:400}
@@ -66,21 +67,21 @@ body{
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.4)}70%{box-shadow:0 0 0 6px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
 
 .mod .metrics{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -18px}
-.mod .metric{flex:1;padding:10px 11px;border-right:1px solid var(--line)}
+.mod .metric{flex:1;padding:10px 8px;border-right:1px solid var(--line)}
 .mod .metric:last-child{border-right:none}
-.mod .metric .mv{font-family:var(--disp);font-size:16px;font-weight:600;line-height:1}
+.mod .metric .mv{font-family:var(--disp);font-size:15px;font-weight:600;line-height:1}
 .mod .metric .mv.green{color:var(--green)}
-.mod .metric .ml{font-family:var(--mono);font-size:8.5px;text-transform:uppercase;letter-spacing:.3px;color:var(--ink3);margin-top:4px}
+.mod .metric .ml{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.3px;color:var(--ink3);margin-top:4px}
 
 .mod .open{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.mod .open .label{font-family:var(--font);font-size:13px;font-weight:600;color:var(--teal)}
-.mod .open .arrow{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;transition:transform .2s}
+.mod .open .label{font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--teal)}
+.mod .open .arrow{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;transition:transform .2s}
 .mod:hover .open .arrow{transform:translateX(3px)}
 
 .foot{text-align:center;padding:24px;font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.5px}
 
 @media(min-width:1400px){.wrap{max-width:1180px}}
-@media(max-width:980px){.modules{grid-template-columns:1fr}}
+@media(max-width:980px){.modules{grid-template-columns:1fr 1fr}}
 @media(max-width:720px){
   .modules{grid-template-columns:1fr}
   .top{padding:13px 18px}
@@ -116,7 +117,7 @@ body{
 <div class="wrap">
   <div class="hd">
     <h1>Modules</h1>
-    <span class="sub">3 connected · 1 source of truth</span>
+    <span class="sub">4 connected · 1 source of truth</span>
   </div>
 
   <div class="modules">
@@ -137,11 +138,27 @@ body{
       <div class="open"><span class="label">Open DispatchIQ</span><span class="arrow">→</span></div>
     </a>
 
+    <a class="mod quote" href="https://quote-engine-one.vercel.app" target="_blank" rel="noopener">
+      <div class="mod-top">
+        <div class="ic">📝</div>
+        <div class="titles">
+          <h2>Quote <span class="code">/ 02</span> <span class="pulse"></span></h2>
+          <div class="leak">Quote &amp; Proposal · itemized quotes in minutes</div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="mv">3</div><div class="ml">This month</div></div>
+        <div class="metric"><div class="mv">4 min</div><div class="ml">Turnaround</div></div>
+        <div class="metric"><div class="mv green">$2.8K</div><div class="ml">Quoted</div></div>
+      </div>
+      <div class="open"><span class="label">Open Quote Engine</span><span class="arrow">→</span></div>
+    </a>
+
     <a class="mod reputation" href="https://reputation-engine-nu.vercel.app" target="_blank" rel="noopener">
       <div class="mod-top">
         <div class="ic">★</div>
         <div class="titles">
-          <h2>Reputation <span class="code">/ 04</span> <span class="pulse"></span></h2>
+          <h2>Reputation <span class="code">/ 03</span> <span class="pulse"></span></h2>
           <div class="leak">Reviews · on-brand replies, posts to Google</div>
         </div>
       </div>
@@ -157,7 +174,7 @@ body{
       <div class="mod-top">
         <div class="ic">↻</div>
         <div class="titles">
-          <h2>Reactivation <span class="code">/ 05</span> <span class="pulse"></span></h2>
+          <h2>Reactivation <span class="code">/ 04</span> <span class="pulse"></span></h2>
           <div class="leak">Win-back · flags lapsed customers, drafts outreach</div>
         </div>
       </div>
