@@ -14,6 +14,7 @@
   --amber:#9A6B15;--amberbg:#FAF3E5;
   --green:#2E7D5B;--greenbg:#ECF6F1;
   --blue:#3D6B9E;--bluebg:#EEF4FA;
+  --red:#C2453F;--redbg:#FBEFEE;
   --gold:#EAB308;
   --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;--disp:'Space Grotesk',sans-serif;
 }
@@ -30,7 +31,7 @@ body{
 }
 
 .top{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid var(--line);background:var(--bg)}
-.brand{display:flex;align-items:center;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
 .brand i{width:27px;height:27px;background:var(--teal);border-radius:7px;display:grid;place-items:center;color:#fff;font-family:var(--disp);font-weight:700;font-size:12px}
 .brand b{font-family:var(--disp);font-weight:600;font-size:15px}
 .brand small{display:block;font-family:var(--mono);font-size:9.5px;color:var(--ink3);letter-spacing:.5px}
@@ -45,43 +46,86 @@ body{
 .stat .l{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink3);margin-top:4px}
 
 .wrap{max-width:1040px;margin:0 auto;padding:24px 28px 50px}
+
 .hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
-.hd h1{font-family:var(--disp);font-size:18px;font-weight:600;letter-spacing:-.3px}
+.hd h1{font-family:var(--disp);font-size:19px;font-weight:600;letter-spacing:-.3px}
 .hd .sub{font-family:var(--mono);font-size:11px;color:var(--ink2)}
 
-.modules{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+/* modules — enhanced, top of page */
+.modules{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px}
 
-.mod{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:18px 18px 0;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,border-color .15s;overflow:hidden}
-.mod:hover{transform:translateY(-2px);box-shadow:0 12px 30px -14px rgba(10,46,54,.22);border-color:var(--teal2)}
-.mod-top{display:flex;align-items:center;gap:12px;margin-bottom:13px}
-.mod .ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.mod{position:relative;background:var(--bg);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:14px;padding:20px 20px 0;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s,border-color .15s;overflow:hidden;box-shadow:0 3px 12px -8px rgba(10,46,54,.15)}
+.mod:hover{transform:translateY(-3px);box-shadow:0 16px 34px -14px rgba(10,46,54,.28);border-color:var(--teal2)}
+.mod.reception{border-top-color:var(--blue)}
+.mod.quote{border-top-color:var(--teal)}
+.mod.reputation{border-top-color:var(--green)}
+.mod.reactivation{border-top-color:var(--amber)}
+.mod-top{display:flex;align-items:center;gap:13px;margin-bottom:14px}
+.mod .ic{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;font-size:20px;flex-shrink:0}
 .mod.reception .ic{background:var(--bluebg);color:var(--blue)}
 .mod.reputation .ic{background:var(--greenbg);color:var(--green)}
 .mod.reactivation .ic{background:var(--amberbg);color:var(--amber)}
 .mod.quote .ic{background:var(--bg3);color:var(--teal)}
 .mod .titles{flex:1;min-width:0}
-.mod h2{font-family:var(--disp);font-size:16px;font-weight:600;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
+.mod h2{font-family:var(--disp);font-size:17px;font-weight:600;letter-spacing:-.3px;display:flex;align-items:center;gap:8px}
 .mod .code{font-family:var(--mono);font-size:10px;color:var(--ink3);font-weight:400}
 .mod .leak{font-family:var(--mono);font-size:10.5px;color:var(--ink2);margin-top:2px}
 .mod .pulse{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 0 0 rgba(46,125,91,.4);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,125,91,.4)}70%{box-shadow:0 0 0 6px rgba(46,125,91,0)}100%{box-shadow:0 0 0 0 rgba(46,125,91,0)}}
 
-.mod .metrics{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -18px}
-.mod .metric{flex:1;padding:10px 8px;border-right:1px solid var(--line)}
+.mod .metrics{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -20px}
+.mod .metric{flex:1;padding:11px 9px;border-right:1px solid var(--line)}
 .mod .metric:last-child{border-right:none}
-.mod .metric .mv{font-family:var(--disp);font-size:15px;font-weight:600;line-height:1}
+.mod .metric .mv{font-family:var(--disp);font-size:16px;font-weight:600;line-height:1}
 .mod .metric .mv.green{color:var(--green)}
 .mod .metric .ml{font-family:var(--mono);font-size:8px;text-transform:uppercase;letter-spacing:.3px;color:var(--ink3);margin-top:4px}
 
-.mod .open{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-.mod .open .label{font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--teal)}
-.mod .open .arrow{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:12px;transition:transform .2s}
+.mod .open{display:flex;align-items:center;justify-content:space-between;padding:15px 0}
+.mod .open .label{font-family:var(--font);font-size:13px;font-weight:600;color:var(--teal)}
+.mod .open .arrow{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;transition:transform .2s}
 .mod:hover .open .arrow{transform:translateX(3px)}
+
+/* side-by-side panels */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;align-items:start}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.panel-h{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border-bottom:1px solid var(--line)}
+.panel-h h2{font-family:var(--disp);font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.panel-h .count{background:var(--amberbg);color:var(--amber);font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px}
+.panel-h .count.zero{background:var(--greenbg);color:var(--green)}
+.panel-h .sub{font-family:var(--mono);font-size:10.5px;color:var(--ink3);display:flex;align-items:center;gap:6px}
+.panel-h .livedot{width:6px;height:6px;border-radius:50%;background:var(--teal2);animation:pulse2 1.6s infinite}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
+.panel-list{padding:6px 0;max-height:340px;overflow-y:auto}
+.p-item{display:flex;align-items:center;gap:11px;padding:11px 20px;text-decoration:none;color:inherit;border-bottom:1px solid #F3F8F7;transition:background .12s}
+.p-item:last-child{border-bottom:none}
+.p-item:hover{background:var(--bg2)}
+.p-item .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.p-item .dot.urgent{background:var(--red)}
+.p-item .dot.warn{background:var(--amber)}
+.p-item .dot.info{background:var(--blue)}
+.p-item .dot.good{background:var(--green)}
+.p-item .txt{flex:1;font-size:13px;min-width:0}
+.p-item .txt b{font-weight:600}
+.p-item .sub2{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:1px}
+.p-item .mod{font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink3);background:var(--bg2);padding:3px 8px;border-radius:5px;flex-shrink:0}
+.p-item .arrow{color:var(--ink3);font-size:13px;flex-shrink:0}
+.p-empty{padding:30px 20px;text-align:center;color:var(--ink3);font-size:13px}
+.p-empty .ck{color:var(--green);font-size:20px;display:block;margin-bottom:6px}
+.p-note{padding:9px 20px;font-family:var(--mono);font-size:10px;color:var(--ink3);background:var(--bg2);border-bottom:1px solid var(--line)}
+
+.trendcard{background:var(--bg);border:1px solid var(--line);border-radius:15px;padding:20px}
+.trendcard .th{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.trendcard .th h3{font-family:var(--disp);font-size:15px;font-weight:600}
+.trendcard .th .eyebrow{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink2)}
+.trendcard .legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px;font-family:var(--mono);font-size:10.5px;color:var(--ink2)}
+.trendcard .legend span{display:inline-flex;align-items:center;gap:5px}
+.trendcard .legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.trend-body{position:relative;height:200px}
 
 .foot{text-align:center;padding:24px;font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:.5px}
 
 @media(min-width:1400px){.wrap{max-width:1180px}}
-@media(max-width:980px){.modules{grid-template-columns:1fr 1fr}}
+@media(max-width:980px){.modules{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr}}
 @media(max-width:720px){
   .modules{grid-template-columns:1fr}
   .top{padding:13px 18px}
@@ -90,11 +134,12 @@ body{
   .stat{padding:11px 16px 11px 0;margin-right:16px}
   .stat .v{font-size:16px}
   .wrap{padding:20px 18px 40px}
+  .p-item .mod{display:none}
 }
 @media(max-width:420px){
   .acct{display:none}
   .stat .v{font-size:15px}
-  .mod .metric{padding:10px 10px}
+  .mod .metric{padding:10px 6px}
   .mod .metric .mv{font-size:15px}
 }
 </style>
@@ -102,19 +147,20 @@ body{
 <body>
 
 <div class="top">
-  <a class="brand" href="https://spitznasandhoff.com" style="text-decoration:none;color:inherit"><i>S&amp;H</i><div><b>The Hub</b><small>SPITZNAS &amp; HOFF</small></div></a>
+  <a class="brand" href="https://spitznasandhoff.com"><i>S&amp;H</i><div><b>The Hub</b><small>SPITZNAS &amp; HOFF</small></div></a>
   <div class="acct"><span class="dot"></span>Apex Home Services · Philadelphia</div>
 </div>
 
-<div class="strip">
-  <div class="stat"><div class="v green">$8,400</div><div class="l">Recovered this mo.</div></div>
-  <div class="stat"><div class="v">47</div><div class="l">Leads captured</div></div>
-  <div class="stat"><div class="v">31</div><div class="l">Jobs dispatched</div></div>
-  <div class="stat"><div class="v" style="color:#B8890B">4.7★</div><div class="l">Avg rating</div></div>
-  <div class="stat"><div class="v">52s</div><div class="l">Avg response</div></div>
+<div class="strip" id="kpiStrip">
+  <div class="stat"><div class="v" id="kLeads">—</div><div class="l">Leads captured</div></div>
+  <div class="stat"><div class="v" id="kEmerg">—</div><div class="l">Emergencies handled</div></div>
+  <div class="stat"><div class="v" style="color:#B8890B" id="kRating">—</div><div class="l">Avg rating</div></div>
+  <div class="stat"><div class="v" id="kQuoted">—</div><div class="l">Quoted value</div></div>
+  <div class="stat"><div class="v green" id="kPipeline">—</div><div class="l">Reactivation pipeline</div></div>
 </div>
 
 <div class="wrap">
+
   <div class="hd">
     <h1>Modules</h1>
     <span class="sub">4 connected · 1 source of truth</span>
@@ -131,8 +177,8 @@ body{
         </div>
       </div>
       <div class="metrics">
-        <div class="metric"><div class="mv">47</div><div class="ml">Leads</div></div>
-        <div class="metric"><div class="mv">31</div><div class="ml">Dispatched</div></div>
+        <div class="metric"><div class="mv" id="mLeads">—</div><div class="ml">Leads</div></div>
+        <div class="metric"><div class="mv" id="mDispatched">—</div><div class="ml">Dispatched</div></div>
         <div class="metric"><div class="mv green">52s</div><div class="ml">Response</div></div>
       </div>
       <div class="open"><span class="label">Open DispatchIQ</span><span class="arrow">→</span></div>
@@ -147,9 +193,9 @@ body{
         </div>
       </div>
       <div class="metrics">
-        <div class="metric"><div class="mv">3</div><div class="ml">This month</div></div>
+        <div class="metric"><div class="mv" id="mQuotes">—</div><div class="ml">This month</div></div>
         <div class="metric"><div class="mv">4 min</div><div class="ml">Turnaround</div></div>
-        <div class="metric"><div class="mv green">$2.8K</div><div class="ml">Quoted</div></div>
+        <div class="metric"><div class="mv green" id="mQuoteVal">—</div><div class="ml">Quoted</div></div>
       </div>
       <div class="open"><span class="label">Open Quote Engine</span><span class="arrow">→</span></div>
     </a>
@@ -163,9 +209,9 @@ body{
         </div>
       </div>
       <div class="metrics">
-        <div class="metric"><div class="mv" style="color:#B8890B">4.7★</div><div class="ml">Rating</div></div>
-        <div class="metric"><div class="mv">129</div><div class="ml">Reviews</div></div>
-        <div class="metric"><div class="mv green">100%</div><div class="ml">Replied</div></div>
+        <div class="metric"><div class="mv" style="color:#B8890B" id="mRating">—</div><div class="ml">Rating</div></div>
+        <div class="metric"><div class="mv" id="mReviews">—</div><div class="ml">Reviews</div></div>
+        <div class="metric"><div class="mv green" id="mReplied">—</div><div class="ml">Replied</div></div>
       </div>
       <div class="open"><span class="label">Open Reputation Engine</span><span class="arrow">→</span></div>
     </a>
@@ -179,17 +225,240 @@ body{
         </div>
       </div>
       <div class="metrics">
-        <div class="metric"><div class="mv" style="color:#B8890B">$1,975</div><div class="ml">Pipeline</div></div>
-        <div class="metric"><div class="mv">9</div><div class="ml">Due</div></div>
+        <div class="metric"><div class="mv" style="color:#B8890B" id="mPipeline">—</div><div class="ml">Pipeline</div></div>
+        <div class="metric"><div class="mv" id="mDue">—</div><div class="ml">Due</div></div>
         <div class="metric"><div class="mv green">65%</div><div class="ml">Win-back</div></div>
       </div>
       <div class="open"><span class="label">Open Reactivation Engine</span><span class="arrow">→</span></div>
     </a>
 
   </div>
+
+  <div class="split">
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Needs your attention <span class="count" id="attnCount">—</span></h2>
+        <span class="sub">across all modules</span>
+      </div>
+      <div class="panel-list" id="attnList"><div class="p-empty">Loading…</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-h">
+        <h2>Reception <span class="count" id="glanceCount" style="background:var(--bluebg);color:var(--blue)">—</span></h2>
+        <span class="sub"><span class="livedot"></span>last 24 hours</span>
+      </div>
+      <div id="glanceNote"></div>
+      <div class="panel-list" id="glanceList"><div class="p-empty">Loading…</div></div>
+    </div>
+  </div>
+
+  <div class="trendcard">
+    <div class="th"><h3>Business activity</h3><span class="eyebrow">last 6 months · all modules</span></div>
+    <div class="legend">
+      <span><i style="background:#378ADD"></i>Reception</span>
+      <span><i style="background:#14B8A6"></i>Quote</span>
+      <span><i style="background:#EAB308"></i>Reputation</span>
+      <span><i style="background:#9A6B15"></i>Reactivation</span>
+    </div>
+    <div class="trend-body"><canvas id="trendChart" role="img" aria-label="Stacked bar chart of business activity across four modules over the last 6 months"></canvas></div>
+  </div>
+
 </div>
 
 <div class="foot">THE HUB · SPITZNAS &amp; HOFF</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const URL_='https://ampuejhdkgvjttvlkayc.supabase.co';
+const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtcHVlamhka2d2anR0dmxrYXljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4NTc2MzMsImV4cCI6MjA5MzQzMzYzM30.T4nFUlCTiapCx8kxr7sOo2zlKgKg-VlmaYNZXQNC7UU';
+const H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
+const $=id=>document.getElementById(id);
+function money(n){return '$'+Number(n||0).toLocaleString(undefined,{maximumFractionDigits:0});}
+function daysAgo(iso){return Math.floor((Date.now()-new Date(iso))/864e5);}
+function timeAgo(iso){
+  const m=Math.floor((Date.now()-new Date(iso))/60000);
+  if(m<1)return 'just now';
+  if(m<60)return m+'m ago';
+  const h=Math.floor(m/60);
+  if(h<24)return h+'h ago';
+  return Math.floor(h/24)+'d ago';
+}
+function initials(n){return (n||'?').split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();}
+
+let leads=[],quotes=[],reviews=[],reactivation=[];
+
+async function loadAll(){
+  try{
+    const [lRes,qRes,rRes,raRes]=await Promise.all([
+      fetch(`${URL_}/rest/v1/dispatch_leads?select=id,caller_name,status,is_emergency,created_at&order=created_at.desc`,{headers:H}),
+      fetch(`${URL_}/rest/v1/quotes?select=id,customer_name,status,total,created_at`,{headers:H}),
+      fetch(`${URL_}/rest/v1/reviews?select=id,reviewer_name,rating,status,created_at`,{headers:H}),
+      fetch(`${URL_}/rest/v1/reactivation_customers?select=id,customer_name,status,estimated_value,last_service_date,service_cycle_days,created_at`,{headers:H})
+    ]);
+    leads = lRes.ok ? await lRes.json() : [];
+    quotes = qRes.ok ? await qRes.json() : [];
+    reviews = rRes.ok ? await rRes.json() : [];
+    reactivation = raRes.ok ? await raRes.json() : [];
+  }catch(e){ }
+  renderKpis();
+  renderModuleMetrics();
+  renderAttention();
+  renderGlance();
+  renderTrend();
+}
+
+function renderKpis(){
+  $('kLeads').textContent = leads.length || '—';
+  $('kEmerg').textContent = leads.filter(l=>l.is_emergency).length;
+  const avgRating = reviews.length ? (reviews.reduce((a,r)=>a+r.rating,0)/reviews.length).toFixed(1) : '—';
+  $('kRating').textContent = avgRating==='—' ? '—' : avgRating+'★';
+  const quotedTotal = quotes.reduce((a,q)=>a+(q.total||0),0);
+  $('kQuoted').textContent = money(quotedTotal);
+  const pipeline = reactivation.filter(c=>c.status!=='sent').reduce((a,c)=>a+(c.estimated_value||0),0);
+  $('kPipeline').textContent = money(pipeline);
+}
+
+function renderModuleMetrics(){
+  $('mLeads').textContent = leads.length || '0';
+  $('mDispatched').textContent = leads.filter(l=>l.status==='dispatched'||l.status==='resolved').length;
+  $('mQuotes').textContent = quotes.length || '0';
+  $('mQuoteVal').textContent = money(quotes.reduce((a,q)=>a+(q.total||0),0));
+  const avgRating = reviews.length ? (reviews.reduce((a,r)=>a+r.rating,0)/reviews.length).toFixed(1) : '—';
+  $('mRating').textContent = avgRating==='—' ? '—' : avgRating+'★';
+  $('mReviews').textContent = reviews.length || '0';
+  const repliedPct = reviews.length ? Math.round(reviews.filter(r=>r.status==='posted').length/reviews.length*100)+'%' : '—';
+  $('mReplied').textContent = repliedPct;
+  const pipeline = reactivation.filter(c=>c.status!=='sent').reduce((a,c)=>a+(c.estimated_value||0),0);
+  $('mPipeline').textContent = money(pipeline);
+  $('mDue').textContent = reactivation.filter(c=>c.status!=='sent').length;
+}
+
+function overdueDays(c){
+  const due=new Date(c.last_service_date);
+  due.setDate(due.getDate()+(c.service_cycle_days||365));
+  return Math.floor((Date.now()-due)/864e5);
+}
+
+function renderAttention(){
+  const items=[];
+
+  leads.filter(l=>l.is_emergency && l.status!=='resolved').forEach(l=>{
+    items.push({level:'urgent',mod:'Reception',url:'https://dispatch.rileyspitznas.com',
+      txt:`Emergency call still open · ${daysAgo(l.created_at)===0?'today':daysAgo(l.created_at)+'d ago'}`});
+  });
+
+  reviews.filter(r=>r.status==='needs_reply' && r.rating<=3).forEach(r=>{
+    items.push({level:'warn',mod:'Reputation',url:'https://reputation-engine-nu.vercel.app',
+      txt:`${r.rating}★ review from <b>${r.reviewer_name}</b> needs a reply`});
+  });
+
+  const posReviewsNeedy = reviews.filter(r=>r.status==='needs_reply' && r.rating>3).length;
+  if(posReviewsNeedy>0){
+    items.push({level:'info',mod:'Reputation',url:'https://reputation-engine-nu.vercel.app',
+      txt:`<b>${posReviewsNeedy}</b> more review${posReviewsNeedy>1?'s':''} awaiting a reply`});
+  }
+
+  quotes.filter(q=>q.status==='sent' && daysAgo(q.created_at)>=3).forEach(q=>{
+    items.push({level:'warn',mod:'Quote',url:'https://quote-engine-one.vercel.app',
+      txt:`Quote for <b>${q.customer_name}</b> sent ${daysAgo(q.created_at)}d ago, no response yet`});
+  });
+
+  reactivation.filter(c=>c.status!=='sent').map(c=>({...c,od:overdueDays(c)}))
+    .sort((a,b)=>b.od-a.od).slice(0,3).forEach(c=>{
+      items.push({level:c.od>90?'urgent':'warn',mod:'Reactivation',url:'https://reactivation-engine-kappa.vercel.app',
+        txt:`<b>${c.customer_name}</b> is ${c.od}d overdue for follow-up`});
+  });
+
+  const order={urgent:0,warn:1,info:2};
+  items.sort((a,b)=>order[a.level]-order[b.level]);
+
+  const cnt=$('attnCount');
+  cnt.textContent=items.length;
+  cnt.classList.toggle('zero', items.length===0);
+
+  if(!items.length){
+    $('attnList').innerHTML='<div class="p-empty"><span class="ck">✓</span>Nothing needs attention right now.</div>';
+    return;
+  }
+  $('attnList').innerHTML=items.slice(0,8).map(it=>`
+    <a class="p-item" href="${it.url}" target="_blank" rel="noopener">
+      <span class="dot ${it.level}"></span>
+      <span class="txt">${it.txt}</span>
+      <span class="mod">${it.mod}</span>
+      <span class="arrow">→</span>
+    </a>`).join('');
+}
+
+function renderGlance(){
+  const cutoff=Date.now()-24*3600e3;
+  let recent=leads.filter(l=>new Date(l.created_at).getTime()>=cutoff);
+  let usedFallback=false;
+  if(!recent.length){
+    recent=[...leads].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,5);
+    usedFallback=true;
+  }
+  $('glanceCount').textContent=leads.filter(l=>new Date(l.created_at).getTime()>=cutoff).length;
+  $('glanceNote').innerHTML = usedFallback && recent.length
+    ? '<div class="p-note">No calls in the last 24 hours — showing most recent below</div>' : '';
+
+  if(!recent.length){
+    $('glanceList').innerHTML='<div class="p-empty">No calls yet.</div>';
+    return;
+  }
+  const dotClass = l => l.is_emergency ? 'urgent' : l.status==='resolved' ? 'good' : l.status==='dispatched' ? 'info' : 'warn';
+  $('glanceList').innerHTML=recent.map(l=>`
+    <a class="p-item" href="https://dispatch.rileyspitznas.com" target="_blank" rel="noopener">
+      <span class="dot ${dotClass(l)}"></span>
+      <span class="txt"><b>${l.caller_name||'Unknown caller'}</b>${l.is_emergency?' · emergency':''}
+        <div class="sub2">${timeAgo(l.created_at)} · ${l.status}</div></span>
+      <span class="arrow">→</span>
+    </a>`).join('');
+}
+
+function monthKey(d){return `${d.getFullYear()}-${d.getMonth()}`;}
+
+function renderTrend(){
+  const now=new Date();
+  const months=[];
+  for(let i=5;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    months.push({key:monthKey(d),label:d.toLocaleString('default',{month:'short'}),reception:0,quote:0,reputation:0,reactivation:0});
+  }
+  const bump=(arr,dateField,field)=>{
+    arr.forEach(x=>{
+      const d=new Date(x[dateField]); const k=monthKey(d);
+      const m=months.find(mo=>mo.key===k); if(m) m[field]++;
+    });
+  };
+  bump(leads,'created_at','reception');
+  bump(quotes,'created_at','quote');
+  bump(reviews,'created_at','reputation');
+  bump(reactivation,'created_at','reactivation');
+
+  new Chart($('trendChart'),{
+    type:'bar',
+    data:{
+      labels:months.map(m=>m.label),
+      datasets:[
+        {label:'Reception',data:months.map(m=>m.reception),backgroundColor:'#378ADD'},
+        {label:'Quote',data:months.map(m=>m.quote),backgroundColor:'#14B8A6'},
+        {label:'Reputation',data:months.map(m=>m.reputation),backgroundColor:'#EAB308'},
+        {label:'Reactivation',data:months.map(m=>m.reactivation),backgroundColor:'#9A6B15'}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{mode:'index',intersect:false}},
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{color:'#9AB0AE',font:{family:'DM Mono',size:10}}},
+        y:{stacked:true,beginAtZero:true,ticks:{precision:0,color:'#9AB0AE',font:{size:10}},grid:{color:'#EAF6F5'}}
+      }
+    }
+  });
+}
+
+loadAll();
+</script>
 </body>
 </html>
